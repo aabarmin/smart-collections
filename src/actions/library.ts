@@ -88,3 +88,9 @@ export function getTracks(vinylId: number): Promise<VinylSide[]> {
     }, 100);
   });
 }
+
+export function updateArtist(vinylId: number, artist: string): Promise<void> {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(), 100);
+  });
+}

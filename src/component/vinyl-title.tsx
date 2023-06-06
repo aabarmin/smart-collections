@@ -1,7 +1,7 @@
 import { Col, Form, Row } from "react-bootstrap";
 import ButtonEdit from "./button-edit";
 import { useCallback, useState } from "react";
-import ButtonSave from "./button-save";
+import ButtonSubmit from "./button-submit";
 import ButtonCancel from "./button-cancel";
 
 interface Props {
@@ -35,7 +35,7 @@ export default function VinylTitle({
                 <Form.Control type="text" />
             </Col>
             <Col xs={1}>
-                <ButtonSave />
+                <ButtonSubmit />
             </Col>
             <Col xs={2}>
                 <ButtonCancel onClick={toggleEdit} />
