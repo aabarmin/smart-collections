@@ -10,6 +10,7 @@ import { getSingle, updateArtist } from "../actions/library";
 import Loader from "./loader";
 import { getTracks } from "../actions/library";
 import VinylSides from "./vinyl-sides";
+import useToasts from "../actions/toasts";
 
 export default function VinylDetails() {
     const params = useParams();
@@ -30,8 +31,12 @@ export default function VinylDetails() {
             });
     }, [id]);
 
+    const {showToast} = useToasts();
+
     const onUpdateArtist = useCallback((value: string) => {
-        updateArtist(id, value);
+        updateArtist(id, value).then(() => {
+            showToast("Artist is updated")
+        });
     }, []);
 
     if (vinyl == null) {
