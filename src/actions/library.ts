@@ -91,12 +91,35 @@ export function getTracks(vinylId: number): Promise<VinylSide[]> {
 
 export function updateArtist(vinylId: number, artist: string): Promise<void> {
   return new Promise((resolve) => {
-    setTimeout(() => resolve(), 100);
+    dummyVinyl.forEach((vinyl) => {
+      if (vinyl.id === vinylId) {
+        vinyl.artist = artist;
+      }
+    });
+    resolve();
   });
 }
 
 export function updateTitle(vinylId: number, title: string): Promise<void> {
   return new Promise((resolve) => {
-    setTimeout(() => resolve(), 100);
+    dummyVinyl.forEach((vinyl) => {
+      if (vinyl.id === vinylId) {
+        vinyl.title = title;
+      }
+    });
+    resolve();
+  });
+}
+
+export function updateTrack(trackId: number, title: string): Promise<void> {
+  return new Promise((resolve) => {
+    dummySides.forEach((side: VinylSide) => {
+      side.tracks.forEach((track) => {
+        if (track.id === trackId) {
+          track.title = title;
+        }
+      });
+    });
+    resolve();
   });
 }
