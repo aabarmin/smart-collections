@@ -56,7 +56,7 @@ export default function VinylDetails() {
                 <Covers images={vinyl.images} editable={false} />
                 <VinylTitle title={vinyl.title} onUpdate={onUpdateTitle} />
                 <VinylArtist artist={vinyl.artist} onUpdate={onUpdateArtist} />
-                <VinylSides sides={sides} editable={false} />
+                <VinylSides sides={sides} />
             </Container>
         </>
     )
