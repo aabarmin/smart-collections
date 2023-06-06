@@ -6,7 +6,7 @@ import Covers from "./covers";
 import VinylTitle from "./vinyl-title";
 import VinylArtist from "./vinyl-artist";
 import { useParams } from "react-router-dom";
-import { getSingle, updateArtist } from "../actions/library";
+import { getSingle, updateArtist, updateTitle } from "../actions/library";
 import Loader from "./loader";
 import { getTracks } from "../actions/library";
 import VinylSides from "./vinyl-sides";
@@ -37,7 +37,13 @@ export default function VinylDetails() {
         updateArtist(id, value).then(() => {
             showToast("Artist is updated")
         });
-    }, []);
+    }, [id, showToast]);
+
+    const onUpdateTitle = useCallback((value: string) => {
+        updateTitle(id, value).then(() => {
+            showToast("Title updated")
+        });
+    }, [id, showToast]);
 
     if (vinyl == null) {
         return <Loader />
@@ -48,7 +54,7 @@ export default function VinylDetails() {
             <Subheader header={vinyl.title} />
             <Container>
                 <Covers images={vinyl.images} editable={false} />
-                <VinylTitle title={vinyl.title} />
+                <VinylTitle title={vinyl.title} onUpdate={onUpdateTitle} />
                 <VinylArtist artist={vinyl.artist} onUpdate={onUpdateArtist} />
                 <VinylSides sides={sides} editable={false} />
             </Container>

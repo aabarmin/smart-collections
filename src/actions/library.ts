@@ -94,3 +94,9 @@ export function updateArtist(vinylId: number, artist: string): Promise<void> {
     setTimeout(() => resolve(), 100);
   });
 }
+
+export function updateTitle(vinylId: number, title: string): Promise<void> {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(), 100);
+  });
+}

@@ -6,6 +6,7 @@ import ButtonCancel from "./button-cancel";
 
 interface Props {
     title: string;
+    onUpdate: (value: string) => void
 }
 
 export default function VinylTitle({

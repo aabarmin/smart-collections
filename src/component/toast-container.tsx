@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { Toast, ToastContainer } from "react-bootstrap";
 import useToasts from "../actions/toasts";
 

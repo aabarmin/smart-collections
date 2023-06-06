@@ -1,6 +1,5 @@
-import React from "react";
 import { VinylSide } from "../model/vinyl";
-import { Accordion, ListGroup } from "react-bootstrap";
+import { Accordion } from "react-bootstrap";
 import VinylTrack from "./vinyl-track";
 
 interface Props {
