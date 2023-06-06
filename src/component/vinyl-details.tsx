@@ -39,8 +39,8 @@ export default function VinylDetails() {
             <Subheader header={vinyl.title} />
             <Container>
                 <Covers images={vinyl.images} editable={false} />
-                <VinylTitle title={vinyl.title} editable={false} />
-                <VinylArtist artist={vinyl.artist} editable={false} />
+                <VinylTitle title={vinyl.title} />
+                <VinylArtist artist={vinyl.artist} />
                 <VinylSides sides={sides} editable={false} />
             </Container>
         </>
