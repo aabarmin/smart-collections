@@ -1,16 +1,15 @@
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Vinyl, VinylSide } from "../model/vinyl";
 import { Container } from "react-bootstrap";
 import Subheader from "./subheader";
 import Covers from "./covers";
-import VinylTitle from "./vinyl-title";
-import VinylArtist from "./vinyl-artist";
 import { useParams } from "react-router-dom";
 import { getSingle, updateArtist, updateTitle } from "../actions/library";
 import Loader from "./loader";
 import { getTracks } from "../actions/library";
 import VinylSides from "./vinyl-sides";
 import useToasts from "../actions/toasts";
+import TextEditable from "./text-editable";
 
 export default function VinylDetails() {
     const params = useParams();
@@ -54,8 +53,16 @@ export default function VinylDetails() {
             <Subheader header={vinyl.title} />
             <Container>
                 <Covers images={vinyl.images} editable={false} />
-                <VinylTitle title={vinyl.title} onUpdate={onUpdateTitle} />
-                <VinylArtist artist={vinyl.artist} onUpdate={onUpdateArtist} />
+                <h2>
+                    <TextEditable 
+                        onUpdate={onUpdateTitle}
+                        text={vinyl.title} />
+                </h2>
+                <small>
+                    <TextEditable 
+                        onUpdate={onUpdateArtist}
+                        text={vinyl.artist} />
+                </small>
                 <VinylSides sides={sides} />
             </Container>
         </>
