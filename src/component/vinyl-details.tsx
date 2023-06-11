@@ -1,14 +1,12 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Vinyl, VinylSide } from "../model/vinyl";
-import { Container, Dropdown, Nav, NavItem, NavLink, Navbar } from "react-bootstrap";
+import { Container, Nav, Navbar } from "react-bootstrap";
 import Covers from "./covers";
 import { useParams } from "react-router-dom";
-import { getSingle, updateArtist, updateTitle } from "../actions/library";
+import { getSingle } from "../actions/library";
 import Loader from "./loader";
 import { getTracks } from "../actions/library";
 import VinylSides from "./vinyl-sides";
-import useToasts from "../actions/toasts";
-import TextEditable from "./text-editable";
 
 export default function VinylDetails() {
     const params = useParams();
@@ -29,20 +27,6 @@ export default function VinylDetails() {
             });
     }, [id]);
 
-    const {showToast} = useToasts();
-
-    const onUpdateArtist = useCallback((value: string) => {
-        updateArtist(id, value).then(() => {
-            showToast("Artist is updated")
-        });
-    }, [id, showToast]);
-
-    const onUpdateTitle = useCallback((value: string) => {
-        updateTitle(id, value).then(() => {
-            showToast("Title updated")
-        });
-    }, [id, showToast]);
-
     if (vinyl == null) {
         return <Loader />
     }
@@ -53,37 +37,23 @@ export default function VinylDetails() {
                 <Container>
                     <Nav>
                         <Nav.Item>
-                            <Nav.Link href="/library">Back</Nav.Link>
+                            <Nav.Link href="/library">
+                                Back
+                            </Nav.Link>
                         </Nav.Item>
-                        <Dropdown as={NavItem}>
-                            <Dropdown.Toggle as={NavLink}>
-                                Add
-                            </Dropdown.Toggle>
-                            <Dropdown.Menu>
-                                <Dropdown.Item>
-                                    Side
-                                </Dropdown.Item>
-                                <Dropdown.Item>
-                                    Track
-                                </Dropdown.Item>
-                            </Dropdown.Menu>
-                        </Dropdown>
+                        <Nav.Item>
+                            <Nav.Link>
+                                Edit
+                            </Nav.Link>
+                        </Nav.Item>
                     </Nav>
                     <Navbar.Brand>{vinyl.title}</Navbar.Brand>
                 </Container>
             </Navbar>
             <Container>
                 <Covers images={vinyl.images} editable={false} />
-                <h2>
-                    <TextEditable 
-                        onUpdate={onUpdateTitle}
-                        text={vinyl.title} />
-                </h2>
-                <small>
-                    <TextEditable 
-                        onUpdate={onUpdateArtist}
-                        text={vinyl.artist} />
-                </small>
+                <h2>{vinyl.title}</h2>
+                <small>by {vinyl.artist}</small>
                 <VinylSides sides={sides} />
             </Container>
         </>
