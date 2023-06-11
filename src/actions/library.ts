@@ -131,7 +131,7 @@ export function createVinyl(
 ): Promise<Vinyl> {
   return new Promise((resolve) => {
     const vinyl: Vinyl = {
-      id: dummyVinyl.length,
+      id: dummyVinyl.length + 1,
       title: title,
       artist: artist,
       cover: "/vinyl-placeholder.jpeg",

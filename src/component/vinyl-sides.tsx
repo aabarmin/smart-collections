@@ -38,20 +38,4 @@ export default function VinylSides({
             ))}
         </>
     )
-
-    // return (
-    //     <Accordion defaultActiveKey={opened}>
-    //         {sides.map(side => (
-    //             <Accordion.Item eventKey={side.id.toString()} key={side.id}>
-    //                 <Accordion.Header>{side.title}</Accordion.Header>
-    //                 <Accordion.Body>
-    //                     {side.tracks.map(track => (
-    //                         <VinylTrack track={track.title} key={track.id} 
-    //                             onUpdate={(value) => onUpdateTrack(track.id, value)} />
-    //                     ))}
-    //                 </Accordion.Body>
-    //             </Accordion.Item>
-    //         ))}
-    //     </Accordion>
-    // )
 }

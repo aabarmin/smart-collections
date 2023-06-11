@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { Vinyl, VinylSide } from "../model/vinyl";
-import { Container } from "react-bootstrap";
-import Subheader from "./subheader";
+import { Container, Dropdown, Nav, NavItem, NavLink, Navbar } from "react-bootstrap";
 import Covers from "./covers";
 import { useParams } from "react-router-dom";
 import { getSingle, updateArtist, updateTitle } from "../actions/library";
@@ -50,7 +49,29 @@ export default function VinylDetails() {
 
     return (
         <>
-            <Subheader header={vinyl.title} />
+            <Navbar bg="light">
+                <Container>
+                    <Nav>
+                        <Nav.Item>
+                            <Nav.Link href="/library">Back</Nav.Link>
+                        </Nav.Item>
+                        <Dropdown as={NavItem}>
+                            <Dropdown.Toggle as={NavLink}>
+                                Add
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                                <Dropdown.Item>
+                                    Side
+                                </Dropdown.Item>
+                                <Dropdown.Item>
+                                    Track
+                                </Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </Nav>
+                    <Navbar.Brand>{vinyl.title}</Navbar.Brand>
+                </Container>
+            </Navbar>
             <Container>
                 <Covers images={vinyl.images} editable={false} />
                 <h2>
