@@ -123,3 +123,22 @@ export function updateTrack(trackId: number, title: string): Promise<void> {
     resolve();
   });
 }
+
+export function createVinyl(
+  title: string,
+  artist: string,
+  tracks: number
+): Promise<Vinyl> {
+  return new Promise((resolve) => {
+    const vinyl: Vinyl = {
+      id: dummyVinyl.length,
+      title: title,
+      artist: artist,
+      cover: "/vinyl-placeholder.jpeg",
+      images: ["/vinyl-placeholder.jpeg"],
+    };
+    dummyVinyl.push(vinyl);
+    console.log(dummyVinyl);
+    resolve(vinyl);
+  });
+}
