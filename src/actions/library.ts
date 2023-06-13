@@ -1,30 +1,4 @@
-import axios from "axios";
-import { Vinyl, VinylSide } from "../model/vinyl";
-
-const dummyVinyl: Vinyl[] = [
-  {
-    id: 1,
-    title: "Jump",
-    artist: "Van Halen",
-    cover: "/vinyl-placeholder.jpeg",
-    images: [
-      "/vinyl-placeholder.jpeg",
-      "/vinyl-placeholder.jpeg",
-      "/vinyl-placeholder.jpeg",
-    ],
-  },
-  {
-    id: 2,
-    title: "Random Memories",
-    artist: "Daft Punk",
-    cover: "/vinyl-placeholder.jpeg",
-    images: [
-      "/vinyl-placeholder.jpeg",
-      "/vinyl-placeholder.jpeg",
-      "/vinyl-placeholder.jpeg",
-    ],
-  },
-];
+import { Vinyl, VinylListItem, VinylSide } from "../model/vinyl";
 
 const dummySides: VinylSide[] = [
   {
@@ -65,7 +39,34 @@ const dummySides: VinylSide[] = [
   },
 ];
 
-export function getCollection(): Promise<Vinyl[]> {
+const dummyVinyl: Vinyl[] = [
+  {
+    vinylId: 1,
+    title: "Jump",
+    artist: "Van Halen",
+    cover: "/vinyl-placeholder.jpeg",
+    images: [
+      "/vinyl-placeholder.jpeg",
+      "/vinyl-placeholder.jpeg",
+      "/vinyl-placeholder.jpeg",
+    ],
+    sides: dummySides,
+  },
+  {
+    vinylId: 2,
+    title: "Random Memories",
+    artist: "Daft Punk",
+    cover: "/vinyl-placeholder.jpeg",
+    images: [
+      "/vinyl-placeholder.jpeg",
+      "/vinyl-placeholder.jpeg",
+      "/vinyl-placeholder.jpeg",
+    ],
+    sides: dummySides,
+  },
+];
+
+export function getCollection(): Promise<VinylListItem[]> {
   // return axios.get("/vinyls")
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -77,17 +78,9 @@ export function getCollection(): Promise<Vinyl[]> {
 export function getSingle(vinylId: number): Promise<Vinyl> {
   return new Promise((resolve) => {
     setTimeout(() => {
-      const item = dummyVinyl.filter((v) => v.id === vinylId)[0];
+      const item = dummyVinyl.filter((v) => v.vinylId === vinylId)[0];
       resolve(item);
     }, 500);
-  });
-}
-
-export function getTracks(vinylId: number): Promise<VinylSide[]> {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(dummySides);
-    }, 100);
   });
 }
 
@@ -99,29 +92,6 @@ export function updateVinyl(vinylId: number, vinyl: Vinyl): Promise<Vinyl> {
   });
 }
 
-export function updateSide(
-  vinylId: number,
-  sideId: number,
-  vinylSide: VinylSide
-): Promise<VinylSide> {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(vinylSide);
-    }, 100);
-  });
-}
-
-export function createSide(
-  vinylId: number,
-  vinylSide: VinylSide
-): Promise<VinylSide> {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(vinylSide);
-    }, 100);
-  });
-}
-
 export function createVinyl(
   title: string,
   artist: string,
@@ -129,11 +99,12 @@ export function createVinyl(
 ): Promise<Vinyl> {
   return new Promise((resolve) => {
     const vinyl: Vinyl = {
-      id: dummyVinyl.length + 1,
+      vinylId: dummyVinyl.length + 1,
       title: title,
       artist: artist,
       cover: "/vinyl-placeholder.jpeg",
       images: ["/vinyl-placeholder.jpeg"],
+      sides: [],
     };
     dummyVinyl.push(vinyl);
     console.log(dummyVinyl);

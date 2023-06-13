@@ -4,12 +4,10 @@ import { Navbar, Container, Nav, Button, Image, Row, Col } from "react-bootstrap
 import { useNavigate, useParams } from "react-router-dom";
 import FormText from "../component/form-text";
 import { SubmitHandler, useFieldArray, useForm } from "react-hook-form";
-import { ChangeEvent, useCallback, useEffect, useRef } from "react";
-import { getSingle, getTracks, updateVinyl, uploadFile } from "../actions/library";
+import { ChangeEvent, useCallback, useEffect, useRef, useState } from "react";
+import { getSingle, updateVinyl, uploadFile } from "../actions/library";
 import Loader from "../component/loader";
-import { createSide } from "../actions/library";
-import { VinylSide, VinylTrack } from "../model/vinyl";
-import { updateSide } from "../actions/library";
+import { Vinyl } from "../model/vinyl";
 import { NavLink } from "react-router-dom";
 import _ from "lodash";
 import FormTextWithButton from "../component/form-text-with-button";
@@ -81,6 +79,7 @@ const PageHeader: React.FC<HeaderProps> = ({ vinylId }) => {
 export default function PageEdit() {
     const params = useParams();
     const id = params.id ? parseInt(params.id) : 0;
+    const [loaded, setLoaded] = useState(false);
     const navigate = useNavigate();
     const uploadInputRef = useRef<HTMLInputElement | null>(null);
     const { register, setValue, control, getValues, handleSubmit } = useForm<Inputs>({
@@ -142,38 +141,24 @@ export default function PageEdit() {
         setValue("sides", sides);
     }, [getValues, setValue]);
     const onFormSubmit: SubmitHandler<Inputs> = (data) => {
-        const promises: Promise<any>[] = [];
-        promises.push(updateVinyl(id, {
-            id: id,
-            title: data.title,
-            artist: data.artist,
-            cover: "",
-            images: data.images.map(img => img.path)
-        }));
-        const sidePromises = data.sides.map(side => {
-            const tracks: VinylTrack[] = side.tracks.map(track => ({
-                id: track.trackId,
-                title: track.title
-            }));
-
-            const vinylSide: VinylSide = {
-                id: side.sideId,
-                title: side.title,
-                tracks: tracks
-            }
-
-            if (side.sideId === 0) {
-                return createSide(id, vinylSide);
-            }
-            return updateSide(id, side.sideId, vinylSide);
-        })
-        sidePromises.forEach(p => promises.push(p));
-
-        Promise
-            .all(promises)
-            .then(() => {
-                navigate(`/library/${id}`)
-            });
+        const vinyl: Vinyl = {
+            vinylId: id, 
+            title: data.title, 
+            artist: data.artist, 
+            images: data.images.map(image => image.path),
+            cover: "", // fixit
+            sides: data.sides.map(side => ({
+                id: side.sideId, 
+                title: side.title, 
+                tracks: side.tracks.map(track => ({
+                    id: track.trackId, 
+                    title: track.title
+                }))
+            }))
+        }
+        updateVinyl(id, vinyl).then(() => {
+            navigate(`/library/${id}`)
+        });
     }
 
     useEffect(() => {
@@ -184,24 +169,27 @@ export default function PageEdit() {
                 setValue("images", vinyl.images.map(img => ({
                     path: img
                 })));
-            });
-
-        getTracks(id)
-            .then(sides => {
-                const forForm: InputSide[] = sides.map(side => ({
-                    sideId: side.id,
-                    title: side.title,
+                setValue("sides", vinyl.sides.map(side => ({
+                    sideId: side.id, 
+                    title: side.title, 
                     tracks: side.tracks.map(track => ({
-                        trackId: track.id,
+                        trackId: track.id, 
                         title: track.title
                     }))
-                }))
-                setValue("sides", forForm)
+                })))
             })
-    }, [id, setValue]);
+            .finally(() => {
+                setLoaded(true);
+            });
+    }, [id, setValue, setLoaded]);
 
-    if (id === 0) {
-        return <Loader />
+    if (!loaded) {
+        return (
+            <>
+                <Header />
+                <Loader />
+            </>
+        )
     }
 
     return (

@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import { getCollection } from "../actions/library";
 import Loader from "./loader";
 import VinylItem from "./vinyl-item";
-import { Vinyl } from "../model/vinyl";
+import { VinylListItem } from "../model/vinyl";
 import { useNavigate } from "react-router";
 import { Container } from "react-bootstrap";
 
 export default function VinylList() {
     const router = useNavigate();
     const [loading, setLoading] = useState(true);
-    const [records, setRecords] = useState([] as Vinyl[]);
+    const [records, setRecords] = useState([] as VinylListItem[]);
 
     useEffect(() => {
         setLoading(true);
@@ -36,7 +36,7 @@ export default function VinylList() {
     return (
         <Container>
             {records.map(item => {
-                return <VinylItem key={item.id} vinyl={item} onClick={navigate} />
+                return <VinylItem key={item.vinylId} vinyl={item} onClick={navigate} />
             })}
         </Container>
     );

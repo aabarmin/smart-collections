@@ -1,20 +1,24 @@
 import React from "react";
 import { Card } from "react-bootstrap";
-import { Vinyl } from "../model/vinyl";
+import { VinylListItem } from "../model/vinyl";
 
 interface VinylItemProps {
-    vinyl: Vinyl, 
+    vinyl: VinylListItem, 
     onClick: (id: number) => void
 }
 
-export default function VinylItem(props: VinylItemProps) {
+const VinylItem: React.FC<VinylItemProps> = ({
+    vinyl, onClick
+}) => {
     return (
-        <Card onClick={() => props.onClick(props.vinyl.id)} >
-            <Card.Img variant="top" src={props.vinyl.cover} />
+        <Card onClick={() => onClick(vinyl.vinylId)} >
+            <Card.Img variant="top" src={vinyl.cover} />
             <Card.Body>
-                <Card.Title>{props.vinyl.title}</Card.Title>
-                <Card.Subtitle>{props.vinyl.artist}</Card.Subtitle>
+                <Card.Title>{vinyl.title}</Card.Title>
+                <Card.Subtitle>{vinyl.artist}</Card.Subtitle>
             </Card.Body>
         </Card>
     )
 }
+
+export default VinylItem;
