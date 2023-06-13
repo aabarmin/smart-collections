@@ -162,7 +162,7 @@ export default function PageEdit() {
             })
         })
         setValue("sides", sides);
-    }, []);
+    }, [getValues, setValue]);
     const onFormSubmit: SubmitHandler<Inputs> = (data) => {
         const promises: Promise<any>[] = [];
         promises.push(updateVinyl(id, {
