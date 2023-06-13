@@ -47,7 +47,7 @@ const VinylSideItem: React.FC<SideProps> = ({side}) => {
             <h2>{side.title}</h2>
             <ul>
                 {side.tracks.map(track => (
-                    <li key={track.id}>
+                    <li key={track.trackId}>
                         {track.title}
                     </li>
                 ))}
@@ -82,7 +82,7 @@ export default function VinylDetails() {
                 <small>by {vinyl.artist}</small>
                 {vinyl.sides.map(side => (
                     <VinylSideItem 
-                        key={side.id}
+                        key={side.sideId}
                         side={side} />
                 ))}
             </Container>

@@ -2,37 +2,37 @@ import { Vinyl, VinylListItem, VinylSide } from "../model/vinyl";
 
 const dummySides: VinylSide[] = [
   {
-    id: 1,
+    sideId: 1,
     title: "Disk 1, Side A",
     tracks: [
       {
-        id: 1,
+        trackId: 1,
         title: "Give Life Back to Music",
       },
       {
-        id: 2,
+        trackId: 2,
         title: "Giorgio by Moroder",
       },
       {
-        id: 3,
+        trackId: 3,
         title: "Within",
       },
     ],
   },
   {
-    id: 2,
+    sideId: 2,
     title: "Disk 1, Side B",
     tracks: [
       {
-        id: 1,
+        trackId: 1,
         title: "Give Life Back to Music",
       },
       {
-        id: 2,
+        trackId: 2,
         title: "Giorgio by Moroder",
       },
       {
-        id: 3,
+        trackId: 3,
         title: "Within",
       },
     ],

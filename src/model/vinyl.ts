@@ -16,12 +16,12 @@ type HasImages = {
 export type Vinyl = VinylListItem & HasSides & HasImages;
 
 export type VinylSide = {
-  id: number;
+  sideId: number;
   title: string;
   tracks: VinylTrack[];
 };
 
 export type VinylTrack = {
-  id: number;
+  trackId: number;
   title: string;
 };

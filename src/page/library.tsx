@@ -3,10 +3,9 @@ import VinylList from "../component/vinyl-list";
 import Footer from "../component/footers";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import useCreateVinyl from "../actions/vinyl-create";
-import { TokenResponse, useGoogleLogin } from "@react-oauth/google";
+import { GoogleLogin, TokenResponse, useGoogleLogin } from "@react-oauth/google";
 import React, { useState } from "react";
 import WideButton from "../component/button-wide";
-import LoginContext from "../context/login-context";
 import axios from "axios";
 
 const LibraryContent: React.FC<any> = () => {
@@ -63,11 +62,7 @@ export default function Library() {
     return (
         <>
             <Header />
-            {logged && (
-                <LoginContext.Provider value={profile}>
-                    <LibraryContent />
-                </LoginContext.Provider>
-            )}
+            {logged && <LibraryContent />}
             {!logged && <LoginContent login={login} />}
         </>
     )

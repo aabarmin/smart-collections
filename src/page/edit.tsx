@@ -148,10 +148,10 @@ export default function PageEdit() {
             images: data.images.map(image => image.path),
             cover: "", // fixit
             sides: data.sides.map(side => ({
-                id: side.sideId, 
+                sideId: side.sideId, 
                 title: side.title, 
                 tracks: side.tracks.map(track => ({
-                    id: track.trackId, 
+                    trackId: track.trackId, 
                     title: track.title
                 }))
             }))
@@ -170,10 +170,10 @@ export default function PageEdit() {
                     path: img
                 })));
                 setValue("sides", vinyl.sides.map(side => ({
-                    sideId: side.id, 
+                    sideId: side.sideId, 
                     title: side.title, 
                     tracks: side.tracks.map(track => ({
-                        trackId: track.id, 
+                        trackId: track.trackId, 
                         title: track.title
                     }))
                 })))
