@@ -7,6 +7,7 @@ import { TokenResponse, useGoogleLogin } from "@react-oauth/google";
 import React, { useState } from "react";
 import WideButton from "../component/button-wide";
 import LoginContext from "../context/login-context";
+import axios from "axios";
 
 const LibraryContent: React.FC<any> = () => {
     const { openDialog } = useCreateVinyl();
@@ -51,8 +52,12 @@ export default function Library() {
         onSuccess: (response) => {
             setLogged(true)
             setProfile(response)
+            axios.defaults.headers.common['Authorization'] = `${response.token_type} ${response.access_token}`;
         },
-        onError: () => setLogged(false)
+        onError: () => {
+            axios.defaults.headers.common['Authorization'] = "";
+            setLogged(false)
+        }
     });
 
     return (

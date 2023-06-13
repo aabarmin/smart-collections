@@ -1,3 +1,4 @@
+import axios from "axios";
 import { Vinyl, VinylSide } from "../model/vinyl";
 
 const dummyVinyl: Vinyl[] = [
@@ -65,6 +66,7 @@ const dummySides: VinylSide[] = [
 ];
 
 export function getCollection(): Promise<Vinyl[]> {
+  // return axios.get("/vinyls")
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(dummyVinyl);
