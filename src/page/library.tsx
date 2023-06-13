@@ -3,7 +3,7 @@ import VinylList from "../component/vinyl-list";
 import Footer from "../component/footers";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import useCreateVinyl from "../actions/vinyl-create";
-import { GoogleLogin, TokenResponse, useGoogleLogin } from "@react-oauth/google";
+import { useGoogleLogin } from "@react-oauth/google";
 import React, { useState } from "react";
 import WideButton from "../component/button-wide";
 import axios from "axios";
@@ -46,11 +46,9 @@ const LoginContent: React.FC<LoginProps> = ({ login }) => {
 
 export default function Library() {
     const [logged, setLogged] = useState(false);
-    const [profile, setProfile] = useState<TokenResponse | null>(null);
     const login = useGoogleLogin({
         onSuccess: (response) => {
             setLogged(true)
-            setProfile(response)
             axios.defaults.headers.common['Authorization'] = `${response.token_type} ${response.access_token}`;
         },
         onError: () => {
