@@ -3,9 +3,10 @@ import VinylList from "../component/vinyl-list";
 import Footer from "../component/footers";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import useCreateVinyl from "../actions/vinyl-create";
-import { useGoogleLogin } from "@react-oauth/google";
+import { TokenResponse, useGoogleLogin } from "@react-oauth/google";
 import React, { useState } from "react";
 import WideButton from "../component/button-wide";
+import LoginContext from "../context/login-context";
 
 const LibraryContent: React.FC<any> = () => {
     const { openDialog } = useCreateVinyl();
@@ -45,15 +46,23 @@ const LoginContent: React.FC<LoginProps> = ({ login }) => {
 
 export default function Library() {
     const [logged, setLogged] = useState(false);
+    const [profile, setProfile] = useState<TokenResponse | null>(null);
     const login = useGoogleLogin({
-        onSuccess: () => setLogged(true),
+        onSuccess: (response) => {
+            setLogged(true)
+            setProfile(response)
+        },
         onError: () => setLogged(false)
     });
 
     return (
         <>
             <Header />
-            {logged && <LibraryContent />}
+            {logged && (
+                <LoginContext.Provider value={profile}>
+                    <LibraryContent />
+                </LoginContext.Provider>
+            )}
             {!logged && <LoginContent login={login} />}
         </>
     )
