@@ -89,45 +89,41 @@ export function getTracks(vinylId: number): Promise<VinylSide[]> {
   });
 }
 
-export function updateArtist(vinylId: number, artist: string): Promise<void> {
+export function updateVinyl(vinylId: number, vinyl: Vinyl): Promise<Vinyl> {
   return new Promise((resolve) => {
-    dummyVinyl.forEach((vinyl) => {
-      if (vinyl.id === vinylId) {
-        vinyl.artist = artist;
-      }
-    });
-    resolve();
+    setTimeout(() => {
+      resolve(vinyl);
+    }, 100);
   });
 }
 
-export function updateTitle(vinylId: number, title: string): Promise<void> {
+export function updateSide(
+  vinylId: number,
+  sideId: number,
+  vinylSide: VinylSide
+): Promise<VinylSide> {
   return new Promise((resolve) => {
-    dummyVinyl.forEach((vinyl) => {
-      if (vinyl.id === vinylId) {
-        vinyl.title = title;
-      }
-    });
-    resolve();
+    setTimeout(() => {
+      resolve(vinylSide);
+    }, 100);
   });
 }
 
-export function updateTrack(trackId: number, title: string): Promise<void> {
+export function createSide(
+  vinylId: number,
+  vinylSide: VinylSide
+): Promise<VinylSide> {
   return new Promise((resolve) => {
-    dummySides.forEach((side: VinylSide) => {
-      side.tracks.forEach((track) => {
-        if (track.id === trackId) {
-          track.title = title;
-        }
-      });
-    });
-    resolve();
+    setTimeout(() => {
+      resolve(vinylSide);
+    }, 100);
   });
 }
 
 export function createVinyl(
   title: string,
   artist: string,
-  tracks: number
+  sideNumber: number
 ): Promise<Vinyl> {
   return new Promise((resolve) => {
     const vinyl: Vinyl = {

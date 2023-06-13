@@ -2,7 +2,8 @@ import React from 'react';
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Home from './page/home';
 import Library from './page/library';
-import Single from './page/single';
+import PageSingle from './page/single';
+import PageEdit from './page/edit';
 
 function App() {
   const router = createBrowserRouter([
@@ -11,8 +12,12 @@ function App() {
       element: <Home />
     },
     {
+      path: "/library/:id/edit", 
+      element: <PageEdit />
+    },
+    {
       path: "/library/:id", 
-      element: <Single />
+      element: <PageSingle />
     },
     {
       path: "/library",

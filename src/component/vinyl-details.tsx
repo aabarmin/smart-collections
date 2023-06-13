@@ -42,7 +42,7 @@ export default function VinylDetails() {
                             </Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link>
+                            <Nav.Link href={"/library/" + vinyl.id + "/edit"}>
                                 Edit
                             </Nav.Link>
                         </Nav.Item>

@@ -3,7 +3,7 @@ import Footer from "../component/footers";
 import VinylDetails from "../component/vinyl-details";
 import ToastContainer from "../component/toast-container";
 
-export default function Single() {
+export default function PageSingle() {
     return (
         <>
             <Header />

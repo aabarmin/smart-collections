@@ -1,7 +1,4 @@
 import { VinylSide } from "../model/vinyl";
-import { useCallback } from "react";
-import { updateTrack } from "../actions/library";
-import useToasts from "../actions/toasts";
 
 interface Props {
     sides: VinylSide[]
@@ -10,13 +7,6 @@ interface Props {
 export default function VinylSides({
     sides
 } : Props) {
-    const {showToast} = useToasts();
-    const onUpdateTrack = useCallback((trackId: number, title: string) => {
-        updateTrack(trackId, title).then(() => {
-            showToast("Track updated")
-        });
-    }, [showToast]);
-
     return (
         <>
             {sides.map(side => (
