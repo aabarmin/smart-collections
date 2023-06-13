@@ -138,3 +138,11 @@ export function createVinyl(
     resolve(vinyl);
   });
 }
+
+export function uploadFile(file: File): Promise<string> {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve("/vinyl-placeholder.jpeg");
+    }, 100);
+  });
+}

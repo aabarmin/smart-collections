@@ -2,7 +2,6 @@ import Header from "../component/header";
 import VinylList from "../component/vinyl-list";
 import Footer from "../component/footers";
 import { Navbar, Container, Nav } from "react-bootstrap";
-import { PlusCircle } from "react-bootstrap-icons";
 import useCreateVinyl from "../actions/vinyl-create";
 
 export default function Library() {

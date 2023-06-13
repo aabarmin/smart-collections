@@ -1,16 +1,17 @@
 import Header from "../component/header";
 import Footer from "../component/footers";
-import { Navbar, Container, Nav, Button } from "react-bootstrap";
+import { Navbar, Container, Nav, Button, Image, Row, Col } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import FormText from "../component/form-text";
 import { SubmitHandler, useFieldArray, useForm } from "react-hook-form";
-import { useCallback, useEffect } from "react";
-import { getSingle, getTracks, updateVinyl } from "../actions/library";
+import { ChangeEvent, useCallback, useEffect, useRef } from "react";
+import { getSingle, getTracks, updateVinyl, uploadFile } from "../actions/library";
 import Loader from "../component/loader";
 import { createSide } from "../actions/library";
 import { VinylSide, VinylTrack } from "../model/vinyl";
 import { updateSide } from "../actions/library";
 import { NavLink } from "react-router-dom";
+import _ from "lodash";
 
 type InputTrack = {
     trackId: number;
@@ -23,9 +24,14 @@ type InputSide = {
     tracks: InputTrack[]
 };
 
+type InputImage = {
+    path: string; 
+};
+
 type Inputs = {
     title: string; 
     artist: string; 
+    images: InputImage[];
     sides: InputSide[];
 }
 
@@ -77,22 +83,48 @@ export default function PageEdit() {
     const params = useParams();
     const id = params.id ? parseInt(params.id) : 0;
     const navigate = useNavigate();
+    const uploadInputRef = useRef<HTMLInputElement | null>(null);
     const {register, setValue, control, getValues, handleSubmit} = useForm<Inputs>({
         defaultValues: {
-            sides: []
+            sides: [], 
+            images: []
         }
     });
-    const {fields, append} = useFieldArray({
+    const {
+        fields: sideFields, 
+        append: sideAppend
+    } = useFieldArray({
         control, 
         name: "sides"
     });
+    const {
+        fields: imageFields, 
+        append: imageAppend
+    } = useFieldArray({
+        control, 
+        name: "images"
+    })
     const onSideAdd = useCallback(() => {
-        append({
+        sideAppend({
             sideId: 0, 
             title: "New side", 
             tracks: []
         })
-    }, [append]);
+    }, [sideAppend]);
+    const onAddImageButtonClick = useCallback(() => {
+        uploadInputRef.current?.click();
+    }, []);
+    const onAddImage = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+        if (!e.target.files) {
+            return; 
+        }
+
+        uploadFile(e.target.files[0]).then(path => {
+            imageAppend({
+                path
+            })
+        });
+    }, [imageAppend]);
     const onTrackAdd = useCallback((sideIndex: number) => {
         const sides: InputSide[] = getValues("sides")
         sides[sideIndex].tracks.push({
@@ -108,7 +140,7 @@ export default function PageEdit() {
             title: data.title, 
             artist: data.artist, 
             cover: "", 
-            images: []
+            images: data.images.map(img => img.path)
         }));
         const sidePromises = data.sides.map(side => {
             const tracks: VinylTrack[] = side.tracks.map(track => ({
@@ -141,6 +173,9 @@ export default function PageEdit() {
             .then(vinyl => {
                 setValue("title", vinyl.title);
                 setValue("artist", vinyl.artist);
+                setValue("images", vinyl.images.map(img => ({
+                    path: img
+                })));
             });
 
         getTracks(id)
@@ -188,6 +223,38 @@ export default function PageEdit() {
                         label="Artist" 
                         register={register} />
 
+                    <h2>Vinyl Images</h2>
+
+                    {imageFields.length > 0 && (
+                        <Container style={{paddingBottom: "16px"}}>
+                            {_.chunk(imageFields, 3).map((row, rowIndex) => (
+                                <Row key={rowIndex}>
+                                    {row.map((img, imgIndex) => (
+                                        <Col key={img.id} xs={4}>
+                                            <Image 
+                                                src={img.path} 
+                                                thumbnail
+                                            />
+                                        </Col>
+                                    ))}
+                                </Row>
+                            ))}
+                        </Container>
+                    )}
+
+                    <input 
+                        style={{display: "none"}}
+                        type="file" 
+                        onChange={onAddImage}
+                        ref={uploadInputRef} />
+
+                    <WideButton 
+                        onClick={onAddImageButtonClick} 
+                        title="Add image" 
+                    />
+
+                    <hr />                        
+
                     <h2>Vinyl Tracks</h2>
 
                     <WideButton 
@@ -197,7 +264,7 @@ export default function PageEdit() {
 
                     <hr />
 
-                    {fields.map((side, sideIndex) => (
+                    {sideFields.map((side, sideIndex) => (
                         <div key={`sides.${side.id}`}>
                             <FormText 
                                 key={`sides.${side.id}`}
