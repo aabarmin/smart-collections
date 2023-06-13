@@ -13,69 +13,47 @@ import { updateSide } from "../actions/library";
 import { NavLink } from "react-router-dom";
 import _ from "lodash";
 import FormTextWithButton from "../component/form-text-with-button";
+import WideButton from "../component/button-wide";
 
 type InputTrack = {
     trackId: number;
-    title: string; 
+    title: string;
 };
 
 type InputSide = {
-    sideId: number; 
-    title: string; 
+    sideId: number;
+    title: string;
     tracks: InputTrack[]
 };
 
 type InputImage = {
-    path: string; 
+    path: string;
 };
 
 type Inputs = {
-    title: string; 
-    artist: string; 
+    title: string;
+    artist: string;
     images: InputImage[];
     sides: InputSide[];
 }
 
-interface ButtonProps {
-    onClick: () => void, 
-    title: string, 
-    variant?: string
-}
-
 interface SubmitProps {
-    title: string, 
+    title: string,
     variant?: string
 }
 
 interface HeaderProps {
-    vinylId: number; 
-}
-
-const WideButton: React.FC<ButtonProps> = ({
-    onClick, 
-    title, 
-    variant = "outline-primary"
-}) => {
-    return (
-        <div className="d-grid gap-2">
-            <Button 
-                onClick={onClick}
-                variant={variant} 
-                size="lg">
-                {title}
-            </Button>
-        </div>
-    )
+    vinylId: number;
 }
 
 const WideSubmit: React.FC<SubmitProps> = ({
-    title, 
+    title,
     variant = "primary"
 }) => {
     return (
         <div className="d-grid gap-2">
-            <Button 
-                variant={variant} 
+            <Button
+                variant={variant}
                 type="submit"
                 size="lg">
                 {title}
@@ -84,7 +62,7 @@ const WideSubmit: React.FC<SubmitProps> = ({
     )
 };
 
-const PageHeader: React.FC<HeaderProps> = ({vinylId}) => {
+const PageHeader: React.FC<HeaderProps> = ({ vinylId }) => {
     return (
         <Navbar bg="light">
             <Container>
@@ -105,30 +83,30 @@ export default function PageEdit() {
     const id = params.id ? parseInt(params.id) : 0;
     const navigate = useNavigate();
     const uploadInputRef = useRef<HTMLInputElement | null>(null);
-    const {register, setValue, control, getValues, handleSubmit} = useForm<Inputs>({
+    const { register, setValue, control, getValues, handleSubmit } = useForm<Inputs>({
         defaultValues: {
-            sides: [], 
+            sides: [],
             images: []
         }
     });
     const {
-        fields: sideFields, 
+        fields: sideFields,
         append: sideAppend
     } = useFieldArray({
-        control, 
+        control,
         name: "sides"
     });
     const {
-        fields: imageFields, 
+        fields: imageFields,
         append: imageAppend
     } = useFieldArray({
-        control, 
+        control,
         name: "images"
     })
     const onSideAdd = useCallback(() => {
         sideAppend({
-            sideId: 0, 
-            title: "New side", 
+            sideId: 0,
+            title: "New side",
             tracks: []
         })
     }, [sideAppend]);
@@ -137,7 +115,7 @@ export default function PageEdit() {
     }, []);
     const onAddImage = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         if (!e.target.files) {
-            return; 
+            return;
         }
 
         uploadFile(e.target.files[0]).then(path => {
@@ -149,7 +127,7 @@ export default function PageEdit() {
     const onTrackAdd = useCallback((sideIndex: number) => {
         const sides: InputSide[] = getValues("sides")
         sides[sideIndex].tracks.push({
-            trackId: 0, 
+            trackId: 0,
             title: "New track"
         });
         setValue("sides", sides);
@@ -166,21 +144,21 @@ export default function PageEdit() {
     const onFormSubmit: SubmitHandler<Inputs> = (data) => {
         const promises: Promise<any>[] = [];
         promises.push(updateVinyl(id, {
-            id: id, 
-            title: data.title, 
-            artist: data.artist, 
-            cover: "", 
+            id: id,
+            title: data.title,
+            artist: data.artist,
+            cover: "",
             images: data.images.map(img => img.path)
         }));
         const sidePromises = data.sides.map(side => {
             const tracks: VinylTrack[] = side.tracks.map(track => ({
-                id: track.trackId, 
+                id: track.trackId,
                 title: track.title
             }));
 
             const vinylSide: VinylSide = {
-                id: side.sideId, 
-                title: side.title, 
+                id: side.sideId,
+                title: side.title,
                 tracks: tracks
             }
 
@@ -211,10 +189,10 @@ export default function PageEdit() {
         getTracks(id)
             .then(sides => {
                 const forForm: InputSide[] = sides.map(side => ({
-                    sideId: side.id, 
-                    title: side.title, 
+                    sideId: side.id,
+                    title: side.title,
                     tracks: side.tracks.map(track => ({
-                        trackId: track.id, 
+                        trackId: track.id,
                         title: track.title
                     }))
                 }))
@@ -234,25 +212,25 @@ export default function PageEdit() {
                 <form onSubmit={handleSubmit(onFormSubmit)}>
                     <h2>Vinyl Details</h2>
 
-                    <FormText 
+                    <FormText
                         id="title"
                         label="Title"
-                        register={register}  />
-                    <FormText 
+                        register={register} />
+                    <FormText
                         id="artist"
-                        label="Artist" 
+                        label="Artist"
                         register={register} />
 
                     <h2>Vinyl Images</h2>
 
                     {imageFields.length > 0 && (
-                        <Container style={{paddingBottom: "16px"}}>
+                        <Container style={{ paddingBottom: "16px" }}>
                             {_.chunk(imageFields, 3).map((row, rowIndex) => (
                                 <Row key={rowIndex}>
                                     {row.map((img, imgIndex) => (
                                         <Col key={img.id} xs={4}>
-                                            <Image 
-                                                src={img.path} 
+                                            <Image
+                                                src={img.path}
                                                 thumbnail
                                             />
                                         </Col>
@@ -262,31 +240,31 @@ export default function PageEdit() {
                         </Container>
                     )}
 
-                    <input 
-                        style={{display: "none"}}
-                        type="file" 
+                    <input
+                        style={{ display: "none" }}
+                        type="file"
                         onChange={onAddImage}
                         ref={uploadInputRef} />
 
-                    <WideButton 
-                        onClick={onAddImageButtonClick} 
-                        title="Add image" 
+                    <WideButton
+                        onClick={onAddImageButtonClick}
+                        title="Add image"
                     />
 
-                    <hr />                        
+                    <hr />
 
                     <h2>Vinyl Tracks</h2>
 
-                    <WideButton 
-                        onClick={onSideAdd} 
-                        title="Add side" 
+                    <WideButton
+                        onClick={onSideAdd}
+                        title="Add side"
                     />
 
                     <hr />
 
                     {sideFields.map((side, sideIndex) => (
                         <div key={`sides.${side.id}`}>
-                            <FormText 
+                            <FormText
                                 key={`sides.${side.id}`}
                                 id={`sides.${sideIndex}.title` as const}
                                 label="Side Name"
@@ -304,7 +282,7 @@ export default function PageEdit() {
                                 />
                             ))}
 
-                            <WideButton 
+                            <WideButton
                                 title="Add track"
                                 onClick={() => onTrackAdd(sideIndex)}
                             />
@@ -313,7 +291,7 @@ export default function PageEdit() {
                         </div>
                     ))}
 
-                    <WideSubmit 
+                    <WideSubmit
                         title="Save"
                     />
 
