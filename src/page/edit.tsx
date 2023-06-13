@@ -12,6 +12,7 @@ import { VinylSide, VinylTrack } from "../model/vinyl";
 import { updateSide } from "../actions/library";
 import { NavLink } from "react-router-dom";
 import _ from "lodash";
+import FormTextWithButton from "../component/form-text-with-button";
 
 type InputTrack = {
     trackId: number;
@@ -46,6 +47,10 @@ interface SubmitProps {
     variant?: string
 }
 
+interface HeaderProps {
+    vinylId: number; 
+}
+
 const WideButton: React.FC<ButtonProps> = ({
     onClick, 
     title, 
@@ -78,6 +83,22 @@ const WideSubmit: React.FC<SubmitProps> = ({
         </div>
     )
 };
+
+const PageHeader: React.FC<HeaderProps> = ({vinylId}) => {
+    return (
+        <Navbar bg="light">
+            <Container>
+                <Nav>
+                    <Nav.Item>
+                        <NavLink to={`/library/${vinylId}`} className="nav-link">
+                            Back
+                        </NavLink>
+                    </Nav.Item>
+                </Nav>
+            </Container>
+        </Navbar>
+    )
+}
 
 export default function PageEdit() {
     const params = useParams();
@@ -133,6 +154,15 @@ export default function PageEdit() {
         });
         setValue("sides", sides);
     }, [getValues, setValue]);
+    const onTrackRemove = useCallback((trackId: number) => {
+        const sides: InputSide[] = getValues("sides");
+        sides.forEach(side => {
+            _.remove(side.tracks, (track) => {
+                return track.trackId === trackId
+            })
+        })
+        setValue("sides", sides);
+    }, []);
     const onFormSubmit: SubmitHandler<Inputs> = (data) => {
         const promises: Promise<any>[] = [];
         promises.push(updateVinyl(id, {
@@ -199,17 +229,7 @@ export default function PageEdit() {
     return (
         <>
             <Header />
-            <Navbar bg="light">
-                <Container>
-                    <Nav>
-                        <Nav.Item>
-                            <NavLink to={`/library/${id}`} className="nav-link">
-                                Back
-                            </NavLink>
-                        </Nav.Item>
-                    </Nav>
-                </Container>
-            </Navbar>
+            <PageHeader vinylId={id} />
             <Container>
                 <form onSubmit={handleSubmit(onFormSubmit)}>
                     <h2>Vinyl Details</h2>
@@ -274,10 +294,12 @@ export default function PageEdit() {
                             />
 
                             {side.tracks.map((track, trackIndex) => (
-                                <FormText
+                                <FormTextWithButton
                                     key={`sides.${side.id}.tracks.${track.trackId}`}
                                     id={`sides.${sideIndex}.tracks.${trackIndex}.title`}
                                     label="Track Name"
+                                    buttonLabel="X"
+                                    onClick={() => onTrackRemove(track.trackId)}
                                     register={register}
                                 />
                             ))}
