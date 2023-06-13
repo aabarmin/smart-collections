@@ -10,6 +10,7 @@ import Loader from "../component/loader";
 import { createSide } from "../actions/library";
 import { VinylSide, VinylTrack } from "../model/vinyl";
 import { updateSide } from "../actions/library";
+import { NavLink } from "react-router-dom";
 
 type InputTrack = {
     trackId: number;
@@ -167,9 +168,9 @@ export default function PageEdit() {
                 <Container>
                     <Nav>
                         <Nav.Item>
-                            <Nav.Link href={"/library/" + id}>
+                            <NavLink to={`/library/${id}`} className="nav-link">
                                 Back
-                            </Nav.Link>
+                            </NavLink>
                         </Nav.Item>
                     </Nav>
                 </Container>

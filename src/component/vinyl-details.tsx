@@ -7,6 +7,7 @@ import { getSingle } from "../actions/library";
 import Loader from "./loader";
 import { getTracks } from "../actions/library";
 import VinylSides from "./vinyl-sides";
+import { NavLink } from "react-router-dom";
 
 export default function VinylDetails() {
     const params = useParams();
@@ -37,14 +38,18 @@ export default function VinylDetails() {
                 <Container>
                     <Nav>
                         <Nav.Item>
-                            <Nav.Link href="/library">
+                            <NavLink 
+                                to="/library" 
+                                className="nav-link">
                                 Back
-                            </Nav.Link>
+                            </NavLink>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link href={"/library/" + vinyl.id + "/edit"}>
+                            <NavLink 
+                                to={`/library/${vinyl.id}/edit`} 
+                                className="nav-link">
                                 Edit
-                            </Nav.Link>
+                            </NavLink>
                         </Nav.Item>
                     </Nav>
                     <Navbar.Brand>{vinyl.title}</Navbar.Brand>
