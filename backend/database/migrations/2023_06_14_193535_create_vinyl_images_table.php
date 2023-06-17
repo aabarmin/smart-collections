@@ -13,7 +13,11 @@ return new class extends Migration {
         Schema::create('vinyl_images', function (Blueprint $table) {
             $table->id('image_id')->autoIncrement();
             $table->string('image_path', 1024);
-            $table->foreignId('vinyl_id')->references('vinyl_id')->on('vinyls');
+            $table->foreignId('vinyl_id')
+                ->references('vinyl_id')
+                ->on('vinyls')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
             $table->index('vinyl_id');
             $table->timestamps();
         });

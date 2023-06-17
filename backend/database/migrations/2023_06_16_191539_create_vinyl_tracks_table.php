@@ -12,7 +12,11 @@ return new class extends Migration {
     {
         Schema::create('vinyl_tracks', function (Blueprint $table) {
             $table->id('track_id')->autoIncrement();
-            $table->foreignId('side_id')->references('side_id')->on('vinyl_sides');
+            $table->foreignId('side_id')
+                ->references('side_id')
+                ->on('vinyl_sides')
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
             $table->string('track_title', 1024);
             $table->timestamps();
         });
