@@ -1,0 +1,16 @@
+name: Check PR Labels
+
+on:
+  pull_request:
+    types: [opened, reopened]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check PR labels
+      run: echo "1234"
+      env:
+        ${{ secrets.GITHUB_TOKEN }}
+      
