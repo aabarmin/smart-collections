@@ -31,7 +31,7 @@ jobs:
             ${{ runner.os }}-
               
       - name: Install dependencies
-        run: cd ./backend && php composer.phar update
+        run: cd ./backend && composer install
 
       - name: Run tests
         run: cd ./backend && php artisan test
