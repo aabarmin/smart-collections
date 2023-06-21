@@ -20,10 +20,34 @@ jobs:
           exit 1
         fi
 
-        echo "PR ID: $PR_ID"
-        echo "REPO: $PR_OWNER/$PR_REPO"
+        LABELS=$(gh pr view $PR_ID --repo "$PR_OWNER/$PR_REPO" --json labels --jq '.labels[].name')
+        ALLOWED_LABELS=(minor major patch)
+        HAS_ONE=False
 
-        gh pr view $PR_ID --repo "$PR_OWNER/$PR_REPO"
+        for LABEL in ${LABELS[@]}
+        do
+          for ALLOWED in ${ALLOWED_LABELS[@]}
+          do
+            if [ $LABEL == $ALLOWED ]
+            then
+              if [ $HAS_ONE == False ]
+              then
+                HAS_ONE=True
+              else
+                echo "More than one label is assigned"
+                echo "Has labels: $LABELS"
+                exit 1
+              fi
+            fi
+          done
+        done
+
+        if [ $HAS_ONE == False ]
+        then
+          echo "No mandatory labels assigned"
+          echo "Has labels: $LABELS"
+          exit 1
+        fi
 
         exit 0   
       env:
