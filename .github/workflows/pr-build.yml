@@ -38,8 +38,8 @@ jobs:
           cd ./backend
           touch test_database.sqlite
           touch .env.testing
-          echo "DB_CONNECTION=sqlite" > .env.testing
-          echo "DB_DATABASE=$(pwd)/test_database.sqlite" > .env.testing
+          echo "DB_CONNECTION=sqlite" >> .env.testing
+          echo "DB_DATABASE=$(pwd)/test_database.sqlite" >> .env.testing
           cat .env.testing
           php artisan --env=testing migrate
 
