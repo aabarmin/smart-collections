@@ -10,8 +10,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout the project
-      uses: actions/checkout@v3
+      - name: Checkout the project
+        uses: actions/checkout@v3
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with: 
+          php-version: '8.2'
+
+      - name: Run tests
+        run: cd ./backend && php artisan test
 
   build_frontend:
     runs-on: ubuntu-latest
@@ -40,5 +48,8 @@ jobs:
       - name: Install dependencies
         run: cd ./frontend && npm install
       
+      - name: Run tests
+        run: cd ./frontend && npm run test
+
       - name: Build frontend
         run: cd ./frontend && npm run build
