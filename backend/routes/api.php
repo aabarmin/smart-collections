@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\VinylController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -24,4 +25,9 @@ Route::controller(VinylController::class)->group(function () {
     Route::post('/vinyls', 'create');
     Route::get('/vinyls/{vinyl}', 'findOne');
     Route::put('/vinyls/{vinyl}', 'updateOne');
+});
+
+Route::controller(FileController::class)->group(function () {
+    Route::post('/files', 'create');
+    Route::get('/files/{fileType}/{filePath}', 'findOne');
 });
