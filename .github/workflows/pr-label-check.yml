@@ -21,12 +21,13 @@ jobs:
         fi
 
         echo "PR ID: $PR_ID"
-        echo "REPO: $PR_REPO"
-        
-        gh pr view $PR_ID --repo $PR_REPO
+        echo "REPO: $PR_OWNER/$PR_REPO"
+
+        gh pr view $PR_ID --repo "$PR_OWNER/$PR_REPO"
 
         exit 0   
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GITHUB_REF: ${{ vars.GITHUB_REF }}
         PR_REPO: ${{ github.event.repository.name }}
+        PR_OWNER: ${{ github.repository_owner }}
