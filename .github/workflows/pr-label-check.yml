@@ -19,6 +19,13 @@ jobs:
           echo "PR ID is not available, exiting"
           exit 1
         fi
+
+        LABELS=$(gh pr view $PR_ID --json labels --jq '.labels[].name')
+        ALLOWED_LABELS=(minor major patch)
+        HAS_ONE=False        
+
+        echo $LABELS
+
         exit 0   
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
