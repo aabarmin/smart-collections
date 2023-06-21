@@ -2,7 +2,8 @@ name: Check PR Labels
 
 on:
   pull_request:
-    branches:
+    branches: 
+     - 'dev'
 
 jobs:
   build:
@@ -12,5 +13,5 @@ jobs:
     - name: Check PR labels
       run: echo "1234"
       env:
-        ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       
