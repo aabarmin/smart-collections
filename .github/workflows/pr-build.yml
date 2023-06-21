@@ -18,6 +18,21 @@ jobs:
         with: 
           php-version: '8.2'
 
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-composer
+        with: 
+          path: ~/backend/vendor
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+              
+      - name: Install dependencies
+        run: cd ./backend && php composer.phar update
+
       - name: Run tests
         run: cd ./backend && php artisan test
 
