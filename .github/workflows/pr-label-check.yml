@@ -13,7 +13,12 @@ jobs:
     - name: Check PR labels
       run: |
         PR_REF=$GITHUB_REF
-        echo $PR_REF
+        PR_ID=$(echo $PR_REF | cut -d '/' -f 3)
+        if [ -z "$PR_ID" ]
+        then
+          echo "PR ID is not available, exiting"
+          exit 1
+        fi
         exit 0   
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
