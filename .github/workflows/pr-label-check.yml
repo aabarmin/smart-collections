@@ -20,9 +20,13 @@ jobs:
           exit 1
         fi
 
-        gh pr view $PR_ID
+        echo "PR ID: $PR_ID"
+        echo "REPO: $PR_REPO"
+        
+        gh pr view $PR_ID --repo $PR_REPO
 
         exit 0   
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GITHUB_REF: ${{ vars.GITHUB_REF }}
+        PR_REPO: ${{ github.event.repository.name }}
