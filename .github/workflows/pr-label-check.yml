@@ -1,6 +1,10 @@
 name: Check PR Labels
 
 on:
+  label:
+    types: 
+      - created
+      - deleted
   pull_request:
     branches: 
      - 'dev'
