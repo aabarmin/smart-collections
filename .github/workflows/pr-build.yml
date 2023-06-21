@@ -33,6 +33,15 @@ jobs:
       - name: Install dependencies
         run: cd ./backend && composer install
 
+      - name: Run migrations for tests
+        run: |
+          cd ./backend
+          touch test_database.sqlite
+          touch .env.testing
+          echo "DB_CONNECTION=sqlite" > .env.testing
+          echo "DB_DATABASE=$(pwd)/test_database.sqlite"
+          php artisan --env=testing migrate
+
       - name: Run tests
         run: cd ./backend && php artisan test
 
