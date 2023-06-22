@@ -45,15 +45,6 @@ jobs:
       - name: Run tests
         run: cd ./backend && php artisan test
 
-      - name: Save artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          retention-days: 2
-          name: backend-artifact
-          path: |
-            ./backend
-            !./backend/**/*.sqlite
-
   build_frontend:
     runs-on: ubuntu-latest
 
@@ -86,11 +77,3 @@ jobs:
 
       - name: Build frontend
         run: cd ./frontend && npm run build
-
-      - name: Save artifact
-        uses: actions/upload-artifact@v3
-        with:
-          retention-days: 2
-          name: frontent-artifact
-          path: |
-            ./frontend/build
