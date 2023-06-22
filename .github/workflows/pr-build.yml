@@ -8,6 +8,7 @@ on:
 jobs:
   build_backend:
     runs-on: ubuntu-latest
+    name: Build Backend
 
     steps:
       - name: Checkout the project
@@ -47,6 +48,7 @@ jobs:
 
   build_frontend:
     runs-on: ubuntu-latest
+    name: Build Frontend
 
     steps:
       - name: Checkout the project
