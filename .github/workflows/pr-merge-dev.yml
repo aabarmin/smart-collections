@@ -11,9 +11,6 @@ on:
   push:
     branches:
       - dev
-  pull_request:
-    branches:
-      - dev
 
 jobs:
   release_create:
@@ -37,50 +34,7 @@ jobs:
         
           echo "Latest PR is $PR_ID"
         
-          LATEST_TAG=$(git tag | grep v | tail -n 1 | grep -Eo '\d+.\d+.\d+')
-          if [ -z "$LATEST_TAG" ]
-          then
-            LATEST_TAG="0.0.0"
-          fi
-        
-          echo "Latest version is $LATEST_TAG"
           
-          LABELS=$(gh pr view $PR_ID --json labels -q '.labels[].name')
-          IS_PATCH=$(echo $LABELS | grep patch)
-          IS_MINOR=$(echo $LABELS | grep minor)
-          IS_MAJOR=$(echo $LABELS | grep major)
-          
-          if [ -z "$IS_PATCH" ] && [ -z "$IS_MINOR" ] && [ -z "$IS_MAJOR" ]
-          then
-            echo "PR $PR_ID does not have patch/minor/major labels"
-            exit 1
-          fi
-          
-          IFS='.' read -r -a PARTS <<< "$LATEST_TAG"
-          
-          if [ ! -z "$IS_MAJOR" ]
-          then
-            PARTS[0]=$((${PARTS[0]}+1))
-            PARTS[1]=0
-            PARTS[2]=0
-          fi
-          
-          if [ ! -z "$IS_MINOR" ]
-          then
-            PARTS[1]=$((${PARTS[1]}+1))
-            PARTS[2]=0
-          fi
-          
-          if [ ! -z "$IS_PATCH" ]
-          then
-            PARTS[2]=$((${PARTS[2]}+1))
-          fi
-          
-          NEXT_VERSION="v${PARTS[0]}.${PARTS[1]}.${PARTS[2]}"
-          NEXT_RELEASE="release-$NEXT_VERSION"
-          echo "Next version is $NEXT_VERSION"
-          
-          gh release create $NEXT_VERSION --generate-notes --latest --target $BRANCH --title $NEXT_RELEASE
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: ${{ inputs.branch }}
