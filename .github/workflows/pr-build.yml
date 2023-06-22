@@ -48,6 +48,7 @@ jobs:
       - name: Save artifacts
         uses: actions/upload-artifact@v3
         with:
+          retention-days: 2
           name: backend-artifact
           path: |
             ./backend
@@ -89,6 +90,7 @@ jobs:
       - name: Save artifact
         uses: actions/upload-artifact@v3
         with:
+          retention-days: 2
           name: frontent-artifact
           path: |
             ./frontend/build
