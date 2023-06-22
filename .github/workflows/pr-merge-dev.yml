@@ -27,7 +27,7 @@ jobs:
       - name: Perform a release
         run: |
           COMMIT_MSG="Test commit (#2)"
-          PR_ID=$(echo "${COMMIT_MSG}" | python3 $(pwd)/github/workflows/scripts/get_pr_number.py)
+          PR_ID=$(echo "${COMMIT_MSG}" | python3 $(pwd)/.github/workflows/scripts/get_pr_number.py)
         
           if [ -z "$PR_ID" ]
           then
