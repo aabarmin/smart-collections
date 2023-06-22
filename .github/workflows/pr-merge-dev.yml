@@ -26,6 +26,7 @@ jobs:
 
       - name: Perform a release
         run: |
+          set -x
           COMMIT_MSG="Test commit (#2)"
           PR_ID=$(echo "${COMMIT_MSG}" | grep -Eo '#\d+' | grep -Eo '\d+')
         
