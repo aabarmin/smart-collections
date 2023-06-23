@@ -20,3 +20,13 @@ yarn-error.log
 
 database.sqlite
 testing_database.sqlite
+
+/resources/css/main.*
+/resources/js/main.*
+/resources/js/*.chunk.js
+/resources/js/*.chunk.js.map
+
+/public/css
+/public/js
+
+/public/*.png
