@@ -10,6 +10,10 @@ jobs:
   deploy:
     name: Deploy to UAT
     runs-on: ubuntu-latest
+
+    environment:
+      name: Development
+
     steps:
       - name: Checkout the project
         uses: actions/checkout@v3
@@ -52,3 +56,6 @@ jobs:
 
       - name: Build the bundle
         run: ./.github/workflows/deploy_dev/run_build.sh
+
+      - name: Deploy the bundle
+        run: ./.github/workflows/deploy_dev/run_deploy.sh
