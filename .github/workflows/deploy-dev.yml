@@ -1,4 +1,4 @@
-name: Deploy to dev
+name: Deploy to UAT
 on:
   workflow_dispatch:
     inputs:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   deploy:
-    name: Deploy to dev
+    name: Deploy to UAT
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the project
@@ -20,4 +20,41 @@ jobs:
         uses: shivammathur/setup-php@v2
         with: 
           php-version: '8.2'
-            
+
+      - name: Install NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20.3.0
+
+      - name: Cache backend dependencies
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-composer
+        with: 
+          path: ~/backend/vendor
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: Cache frontend dependencies
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-node-modules
+        with: 
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-              
+
+      - name: Install backend dependencies
+        run: cd ./backend && composer install
+
+      - name: Install frontend dependencies
+        run: cd ./frontend && npm install        
+
+      - name: Build frontend
+        run: cd ./frontend && npm run build        
