@@ -43,6 +43,18 @@ function frontend_integrate()
     echo "Done"
 }
 
+function backend_build() 
+{
+    echo "Building the backend"
+
+    cd ./backend
+    composer install
+
+    echo "Done"
+}
+
+backend_build
+
 frontend_build
 frontend_copy
 frontend_integrate
