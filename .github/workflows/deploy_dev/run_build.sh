@@ -1,8 +1,12 @@
 #!/bin/bash
 
+home_dir=$(pwd)
+
 function frontend_build() 
 {
     echo "Building the frontend"
+
+    cd $home_dir
 
     cd ./frontend
     npm install
@@ -14,6 +18,8 @@ function frontend_build()
 function frontend_copy()
 {
     echo "Copy frontend to backend"
+
+    cd $home_dir
 
     rm -rf ./backend/public/css
     rm -rf ./backend/public/js
@@ -33,6 +39,8 @@ function frontend_integrate()
 {
     echo "Integrate frontend and backend"
 
+    cd $home_dir
+
     JS_FILE=$(ls -1 ./backend/public/js | grep "main" | grep ".js" | grep -v ".js.")
     CSS_FILE=$(ls -1 ./backend/public/css | grep "main" | grep ".css" | grep -v ".css.")
 
@@ -42,6 +50,19 @@ function frontend_integrate()
 
     echo "Done"
 }
+
+function backend_build() 
+{
+    echo "Building the backend"
+
+    cd $home_dir
+    cd ./backend
+    composer install
+
+    echo "Done"
+}
+
+backend_build
 
 frontend_build
 frontend_copy
