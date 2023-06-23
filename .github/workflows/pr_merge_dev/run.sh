@@ -1,6 +1,4 @@
 #!/bin/bash
-pip3 install requests
-
 COMMIT_MSG="Test commit (#2)"
 
 PR_ID=$(python3 ./get_pr_number.py "${COMMIT_MSG}")
