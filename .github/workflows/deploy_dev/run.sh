@@ -19,9 +19,14 @@ function frontend_copy()
     rm -rf ./backend/public/js
     rm -f ./backend/public/favicon.ico
 
+    echo "Test"
+
+    ls .
     ls ./frontend
     ls ./frontend/build
     ls ./frontend/build/static
+
+    echo "Test done"
 
     cp -R ./frontend/build/static/css ./backend/public/css
     cp -R ./frontend/build/static/js ./backend/public/js
