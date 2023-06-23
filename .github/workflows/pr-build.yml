@@ -24,7 +24,7 @@ jobs:
         env:
           cache-name: cache-composer
         with: 
-          path: ~/backend/vendor
+          path: ./backend/vendor
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
