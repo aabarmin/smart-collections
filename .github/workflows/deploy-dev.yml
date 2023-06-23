@@ -50,5 +50,5 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
 
-      - name: Run deployment
-        run: ./.github/workflows/deploy_dev/run.sh
+      - name: Build the bundle
+        run: ./.github/workflows/deploy_dev/run_build.sh
