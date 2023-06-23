@@ -49,12 +49,14 @@ export default function Library() {
     const login = useGoogleLogin({
         onSuccess: (response) => {
             setLogged(true)
-            axios.defaults.headers.common['Authorization'] = `${response.token_type} ${response.access_token}`;
+            debugger;
+            // axios.defaults.headers.common['Authorization'] = `${response.token_type} ${response.access_token}`;
         },
         onError: () => {
             axios.defaults.headers.common['Authorization'] = "";
             setLogged(false)
-        }
+        }, 
+        flow: 'auth-code'
     });
 
     return (
