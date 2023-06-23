@@ -25,14 +25,9 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Perform a release
-        run: |
-          COMMIT_MSG="Test commit (#2)"
-          PR_ID=$(echo "${COMMIT_MSG}" | python3 $(pwd)/.github/workflows/scripts/get_pr_number.py)
-        
-          if [ -z "$PR_ID" ]
-          then
-            echo "PR ID is not included into the latest commit subject"
-            exit 1
-          fi
-        
-          echo "Latest PR is $PR_ID"
+        run: cd ./.github/workflows/pr_merge_dev && ./run.sh
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO_NAME: ${{ github.event.repository.name }}
+          REPO_OWNER: ${{ github.repository_owner }}
+          REPO_BRANCH: "create-backend"
