@@ -10,6 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     name: Build Backend
 
+    strategy:
+      matrix:
+        php_version: ['8.1', '8.2']
+
     steps:
       - name: Checkout the project
         uses: actions/checkout@v3
@@ -17,7 +21,7 @@ jobs:
       - name: Install PHP
         uses: shivammathur/setup-php@v2
         with: 
-          php-version: '8.2'
+          php-version: ${{ matrix.php_version }}
 
       - name: Cache dependencies
         uses: actions/cache@v3
