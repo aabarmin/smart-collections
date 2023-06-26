@@ -1,5 +1,5 @@
 #!/bin/bash
-COMMIT_MSG="Test commit (#2)"
+COMMIT_MSG=$(git show -s --format=%s)
 
 PR_ID=$(python3 ./get_pr_number.py "${COMMIT_MSG}")
 echo "Latest PR is ${PR_ID}"
