@@ -64,6 +64,11 @@ jobs:
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./backend/
+          exclude: |
+            **/.devcontainer
+            **/tests
+            .env.example
+            .env.testing
 
 #       - name: Deploy the bundle
 #         run: ./.github/workflows/deploy_dev/run_deploy.sh
