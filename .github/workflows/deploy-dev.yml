@@ -64,8 +64,3 @@ jobs:
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./backend/
-          exclude: |
-            **/.devcontainer/**
-            **/tests/**
-            .env.example
-            .env.testing
