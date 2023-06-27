@@ -62,8 +62,25 @@ function backend_build()
     echo "Done"
 }
 
+function backend_cleanup()
+{
+    echo "Removing unnecessary files"
+
+    cd $home_dir
+    cd ./backend
+
+    rm -rf .devcontainer
+    rm -rf tests
+    rm -f .env.example
+    rm -f .env.testing
+
+    echo "Done"
+}
+
 backend_build
 
 frontend_build
 frontend_copy
 frontend_integrate
+
+backend_cleanup
