@@ -65,15 +65,7 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./backend/
           exclude: |
-            **/.devcontainer
-            **/tests
+            **/.devcontainer/**
+            **/tests/**
             .env.example
             .env.testing
-
-#       - name: Deploy the bundle
-#         run: ./.github/workflows/deploy_dev/run_deploy.sh
-#         env:
-#           FTP_HOST: ${{ secrets.FTP_HOST }}
-#           FTP_USER: ${{ secrets.FTP_USER }}
-#           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-#           REMOTE_BASE_URL: ${{ vars.REMOTE_BASE_URL }}
