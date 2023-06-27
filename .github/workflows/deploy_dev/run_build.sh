@@ -73,6 +73,8 @@ function backend_cleanup()
     rm -rf tests
     rm -f .env.example
     rm -f .env.testing
+
+    echo "Done"
 }
 
 backend_build
