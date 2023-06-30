@@ -87,7 +87,7 @@ function backend_prepare_env()
 
     echo "LOG_CHANNEL=stack" >> .env
     echo "LOG_DEPRECATIONS_CHANNEL=null" >> .env
-    echo "LOG_LEVEL=debug"
+    echo "LOG_LEVEL=debug" >> .env
 
     echo "Done"
 }
