@@ -72,7 +72,7 @@ function backend_prepare_env()
     rm -f .env
     touch .env
 
-    echo "APP_NAME=Vinyl Collection" >> .env
+    echo "APP_NAME=Vinyl_Collection" >> .env
     echo "APP_ENV=production" >> .env
     echo "APP_KEY=${APP_KEY}" >> .env
     echo "APP_DEBUG=false" >> .env
