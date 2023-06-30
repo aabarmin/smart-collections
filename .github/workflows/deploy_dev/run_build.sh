@@ -72,7 +72,7 @@ function backend_prepare_env()
     rm -f .env
     touch .env
 
-    echo "APP_NAME=Vinyl Collection" >> .env
+    echo "APP_NAME=Vinyl_Collection" >> .env
     echo "APP_ENV=production" >> .env
     echo "APP_KEY=${APP_KEY}" >> .env
     echo "APP_DEBUG=false" >> .env
@@ -84,6 +84,10 @@ function backend_prepare_env()
     echo "DB_DATABASE=${DB_DATABASE}" >> .env
     echo "DB_USERNAME=${DB_USERNAME}" >> .env
     echo "DB_PASSWORD=${DB_PASSWORD}" >> .env
+
+    echo "LOG_CHANNEL=stack" >> .env
+    echo "LOG_DEPRECATIONS_CHANNEL=null" >> .env
+    echo "LOG_LEVEL=debug" >> .env
 
     echo "Done"
 }
@@ -99,6 +103,17 @@ function backend_cleanup()
     rm -rf tests
     rm -f .env.example
     rm -f .env.testing
+    rm -f .editorconfig
+    rm -f .gitattributes
+    rm -f .gitignore
+    rm -f composer.json
+    rm -f composer.lock
+    rm -f docker-compose.yml
+    rm -f package.json
+    rm -f phpunit.xml
+    rm -f vite.config.js
+    rm -f artisan
+    rm -f README.md
 
     echo "Done"
 }
