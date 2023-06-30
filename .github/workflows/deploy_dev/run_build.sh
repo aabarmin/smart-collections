@@ -2,6 +2,21 @@
 
 home_dir=$(pwd)
 
+function frontend_prepare_env()
+{
+    echo "Prepare .env for frontend"
+
+    cd $home_dir
+    cd ./frontend
+
+    rm -f .env
+    touch .env
+
+    echo "REACT_APP_GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}" >> .env
+
+    echo "Done"
+}
+
 function frontend_build() 
 {
     echo "Building the frontend"
@@ -121,6 +136,7 @@ function backend_cleanup()
 backend_build
 backend_prepare_env
 
+frontend_prepare_env
 frontend_build
 frontend_copy
 frontend_integrate
