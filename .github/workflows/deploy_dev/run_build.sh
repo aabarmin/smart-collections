@@ -112,6 +112,8 @@ function backend_cleanup()
     rm -f package.json
     rm -f phpunit.xml
     rm -f vite.config.js
+    rm -f artisan
+    rm -f README.md
 
     echo "Done"
 }
