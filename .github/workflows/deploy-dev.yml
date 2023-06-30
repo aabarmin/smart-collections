@@ -64,6 +64,7 @@ jobs:
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
           DB_PORT: ${{ secrets.DB_PORT }}
           DB_USERNAME: ${{ secrets.DB_USERNAME }}
+          REMOTE_BASE_URL: ${{ secrets.REMOTE_BASE_URL }}
         
       - name: Upload via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
