@@ -62,6 +62,32 @@ function backend_build()
     echo "Done"
 }
 
+function backend_prepare_env()
+{
+    echo "Preparing .env for backend"
+
+    cd $home_dir
+    cd ./backend
+
+    rm -f .env
+    touch .env
+
+    echo "APP_NAME=Vinyl Collection" >> .env
+    echo "APP_ENV=production" >> .env
+    echo "APP_KEY=${APP_KEY}" >> .env
+    echo "APP_DEBUG=false" >> .env
+    echo "APP_URL=${REMOTE_BASE_URL}" >> .env
+
+    echo "DB_CONNECTION=${DB_CONNECTION:mysql}" >> .env
+    echo "DB_HOST=${DB_HOST}" >> .env
+    echo "DB_PORT=${DB_PORT}" >> .env
+    echo "DB_DATABASE=${DB_DATABASE}" >> .env
+    echo "DB_USERNAME=${DB_USERNAME}" >> .env
+    echo "DB_PASSWORD=${DB_PASSWORD}" >> .env
+
+    echo "Done"
+}
+
 function backend_cleanup()
 {
     echo "Removing unnecessary files"
@@ -78,6 +104,7 @@ function backend_cleanup()
 }
 
 backend_build
+backend_prepare_env
 
 frontend_build
 frontend_copy
