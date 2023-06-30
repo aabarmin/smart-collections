@@ -103,6 +103,15 @@ function backend_cleanup()
     rm -rf tests
     rm -f .env.example
     rm -f .env.testing
+    rm -f .editorconfig
+    rm -f .gitattributes
+    rm -f .gitignore
+    rm -f composer.json
+    rm -f composer.lock
+    rm -f docker-compose.yml
+    rm -f package.json
+    rm -f phpunit.xml
+    rm -f vite.config.js
 
     echo "Done"
 }
