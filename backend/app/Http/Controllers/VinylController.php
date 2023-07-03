@@ -30,7 +30,7 @@ class VinylController extends Controller
      * View all the vinyls that belongs to the current user. 
      * @todo current user is not defined at the moment, so, just all the vinyls
      */
-    public function viewAll()
+    public function viewAll(Request $request)
     {
         return response()
             ->json(
