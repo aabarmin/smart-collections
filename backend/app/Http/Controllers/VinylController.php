@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\VinylCollectionItemResource;
 use App\Http\Resources\VinylCollectionResource;
 use App\Http\Resources\VinylResource;
 use App\Models\Vinyl;
@@ -35,7 +34,7 @@ class VinylController extends Controller
         return response()
             ->json(
                 new VinylCollectionResource(
-                    VinylCollectionItemResource::collection(Vinyl::all())
+                    VinylResource::collection(Vinyl::all())
                 )
             );
     }

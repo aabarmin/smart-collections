@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Vinyl, VinylListItem, VinylSide } from "../model/vinyl";
+import { Vinyl, VinylImage, VinylListItem, VinylSide } from "../model/vinyl";
 import { BackendResponseCollection, BackendResponseSingle } from "./response";
 
 const baseUrl = process.env.REACT_APP_BACKED_URL;
@@ -55,7 +55,6 @@ export function createVinyl(
 
   const body: Vinyl = {
     vinyl_id: 0,
-    cover: "",
     vinyl_sides: sides,
     vinyl_images: [],
     vinyl_title: title,
@@ -77,8 +76,24 @@ export function createVinyl(
 
 export function uploadFile(file: File): Promise<string> {
   return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve("/vinyl-placeholder.jpeg");
-    }, 100);
+    const url = `${baseUrl}/files`;
+    const formData: FormData = new FormData();
+    formData.append("file", file);
+
+    axios
+      .post(url, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((response) => {
+        const locationHeader = response.headers.location;
+        const imagePath = locationHeader.substring(11);
+        resolve(imagePath);
+      });
   });
+}
+
+export function getImagePath(image: VinylImage): string {
+  return `${baseUrl}/files/${image.image_path}`;
 }

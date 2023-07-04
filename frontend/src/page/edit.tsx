@@ -12,6 +12,7 @@ import { NavLink } from "react-router-dom";
 import _ from "lodash";
 import FormTextWithButton from "../component/form-text-with-button";
 import WideButton from "../component/button-wide";
+import { getImagePath } from "../actions/library";
 
 type InputTrack = {
     trackId: number;
@@ -145,8 +146,10 @@ export default function PageEdit() {
             vinyl_id: id, 
             vinyl_title: data.title, 
             vinyl_artist: data.artist, 
-            vinyl_images: data.images.map(image => image.path),
-            cover: "", // fixit
+            vinyl_images: data.images.map(img => ({
+                image_id: 0, 
+                image_path: img.path
+            })),
             vinyl_sides: data.sides.map(side => ({
                 side_id: side.sideId, 
                 side_title: side.title, 
@@ -167,7 +170,7 @@ export default function PageEdit() {
                 setValue("title", vinyl.vinyl_title);
                 setValue("artist", vinyl.vinyl_artist);
                 setValue("images", vinyl.vinyl_images.map(img => ({
-                    path: img
+                    path: img.image_path
                 })));
                 setValue("sides", vinyl.vinyl_sides.map(side => ({
                     sideId: side.side_id, 
@@ -218,7 +221,7 @@ export default function PageEdit() {
                                     {row.map((img, imgIndex) => (
                                         <Col key={img.id} xs={4}>
                                             <Image
-                                                src={img.path}
+                                                src={getImagePath({image_id: 0, image_path: img.path})}
                                                 thumbnail
                                             />
                                         </Col>

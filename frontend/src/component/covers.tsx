@@ -1,9 +1,11 @@
 import React from "react";
 import { Carousel } from "react-bootstrap";
+import { VinylImage } from "../model/vinyl";
+import { getImagePath } from "../actions/library";
 
 interface Props {
     editable: boolean;
-    images: string[];
+    images: VinylImage[];
 }
 
 export default function Covers({
@@ -15,7 +17,7 @@ export default function Covers({
             <Carousel>
                 {images.map((img, index) => (
                     <Carousel.Item key={index}>
-                        <img src={img} className="d-block w-100" alt="" />
+                        <img src={getImagePath(img)} className="d-block w-100" alt="" />
                     </Carousel.Item>
                 ))}
             </Carousel>
