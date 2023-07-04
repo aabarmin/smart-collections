@@ -1,27 +1,27 @@
 export type VinylListItem = {
-  vinylId: number;
-  title: string;
-  artist: string;
-  cover: string;
+  vinyl_id: number;
+  vinyl_title: string;
+  vinyl_artist: string;
+  cover?: string;
 };
 
 type HasSides = {
-  sides: VinylSide[];
+  vinyl_sides: VinylSide[];
 };
 
 type HasImages = {
-  images: string[];
+  vinyl_images: string[];
 };
 
 export type Vinyl = VinylListItem & HasSides & HasImages;
 
 export type VinylSide = {
-  sideId: number;
-  title: string;
-  tracks: VinylTrack[];
+  side_id: number;
+  side_title: string;
+  side_tracks: VinylTrack[];
 };
 
 export type VinylTrack = {
-  trackId: number;
-  title: string;
+  track_id: number;
+  track_title: string;
 };

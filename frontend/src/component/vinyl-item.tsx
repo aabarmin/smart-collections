@@ -11,11 +11,11 @@ const VinylItem: React.FC<VinylItemProps> = ({
     vinyl, onClick
 }) => {
     return (
-        <Card onClick={() => onClick(vinyl.vinylId)} >
+        <Card onClick={() => onClick(vinyl.vinyl_id)} >
             <Card.Img variant="top" src={vinyl.cover} />
             <Card.Body>
-                <Card.Title>{vinyl.title}</Card.Title>
-                <Card.Subtitle>{vinyl.artist}</Card.Subtitle>
+                <Card.Title>{vinyl.vinyl_title}</Card.Title>
+                <Card.Subtitle>{vinyl.vinyl_artist}</Card.Subtitle>
             </Card.Body>
         </Card>
     )

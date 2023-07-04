@@ -29,13 +29,13 @@ const DetailsNavigation: React.FC<NavigationProps> = ({vinyl}) => {
                     </Nav.Item>
                     <Nav.Item>
                         <NavLink 
-                            to={`/library/${vinyl.vinylId}/edit`} 
+                            to={`/library/${vinyl.vinyl_id}/edit`} 
                             className="nav-link">
                             Edit
                         </NavLink>
                     </Nav.Item>
                 </Nav>
-                <Navbar.Brand>{vinyl.title}</Navbar.Brand>
+                <Navbar.Brand>{vinyl.vinyl_title}</Navbar.Brand>
             </Container>
         </Navbar>
     )
@@ -44,11 +44,11 @@ const DetailsNavigation: React.FC<NavigationProps> = ({vinyl}) => {
 const VinylSideItem: React.FC<SideProps> = ({side}) => {
     return (
         <section>
-            <h2>{side.title}</h2>
+            <h2>{side.side_title}</h2>
             <ul>
-                {side.tracks.map(track => (
-                    <li key={track.trackId}>
-                        {track.title}
+                {side.side_tracks.map(track => (
+                    <li key={track.track_id}>
+                        {track.track_title}
                     </li>
                 ))}
             </ul>
@@ -77,12 +77,12 @@ export default function VinylDetails() {
         <>
             <DetailsNavigation vinyl={vinyl} />
             <Container>
-                <Covers images={vinyl.images} editable={false} />
-                <h2>{vinyl.title}</h2>
-                <small>by {vinyl.artist}</small>
-                {vinyl.sides.map(side => (
+                <Covers images={vinyl.vinyl_images} editable={false} />
+                <h2>{vinyl.vinyl_title}</h2>
+                <small>by {vinyl.vinyl_artist}</small>
+                {vinyl.vinyl_sides.map(side => (
                     <VinylSideItem 
-                        key={side.sideId}
+                        key={side.side_id}
                         side={side} />
                 ))}
             </Container>
