@@ -24,18 +24,6 @@ function prepare_credentials()
     echo "}" >> ./ftp_credentials.json
 }
 
-function prepare_secret()
-{
-    cd $work_dir/backend
-
-    rm -f ./storage/app/secret_file.txt
-    touch ./storage/app/secret_file.txt
-    $(cat /dev/urandom | tr -dc '[:alpha:]' | fold -w ${1:-20} | head -n 1) >> ./storage/app/secret_file.txt
-
-    cat "Secret"
-    cat ./storage/app/secret_file.txt
-}
-
 function archive_build()
 {
     cd $work_dir/bundle
@@ -51,7 +39,6 @@ function archive_build()
     echo "routes" >> ./archive_files.txt
     echo "vendor" >> ./archive_files.txt
     echo ".env" >> ./archive_files.txt
-    echo "storage/app/secret_file.txt" >> ./archive_files.txt
 
     cd ../backend
     rm -r archive.zip
@@ -113,7 +100,6 @@ function cleanup_local()
 
 prepare_local
 prepare_credentials
-prepare_secret
 
 archive_build
 archive_upload

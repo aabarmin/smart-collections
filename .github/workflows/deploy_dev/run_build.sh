@@ -107,6 +107,21 @@ function backend_prepare_env()
     echo "Done"
 }
 
+function backend_prepare_secret()
+{
+    echo "Preparing secret for DB migration"
+
+    cd $home_dir
+    cd ./backend
+
+    rm -f ./storage/app/secret_file.txt
+    touch ./storage/app/secret_file.txt
+
+    $(cat /dev/urandom | tr -dc '[:alpha:]' | fold -w ${1:-20} | head -n 1) >> ./storage/app/secret_file.txt
+
+    echo "Done"
+}
+
 function backend_cleanup()
 {
     echo "Removing unnecessary files"
@@ -135,6 +150,7 @@ function backend_cleanup()
 
 backend_build
 backend_prepare_env
+backend_prepare_secret
 
 frontend_prepare_env
 frontend_build
