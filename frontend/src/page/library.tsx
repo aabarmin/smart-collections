@@ -77,7 +77,7 @@ export default function Library() {
             setLogged(false);
             localStorage.removeItem("id_token");
         }
-    });
+    }, [setLogged]);
 
 
     const login = useGoogleLogin({

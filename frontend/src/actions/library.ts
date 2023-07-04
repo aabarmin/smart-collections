@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Vinyl, VinylImage, VinylListItem, VinylSide } from "../model/vinyl";
-import { BackendResponseCollection, BackendResponseSingle } from "./response";
+import { BackendResponseCollection } from "./response";
 
 const baseUrl = process.env.REACT_APP_BACKED_URL;
 
