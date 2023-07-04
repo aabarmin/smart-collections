@@ -31,6 +31,9 @@ function prepare_secret()
     rm -f ./storage/app/secret_file.txt
     touch ./storage/app/secret_file.txt
     $(cat /dev/urandom | tr -dc '[:alpha:]' | fold -w ${1:-20} | head -n 1) >> ./storage/app/secret_file.txt
+
+    cat "Secret"
+    cat ./storage/app/secret_file.txt
 }
 
 function archive_build()
