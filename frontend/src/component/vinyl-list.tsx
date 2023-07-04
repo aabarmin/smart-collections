@@ -36,7 +36,7 @@ export default function VinylList() {
     return (
         <Container>
             {records.map(item => {
-                return <VinylItem key={item.vinylId} vinyl={item} onClick={navigate} />
+                return <VinylItem key={item.vinyl_id} vinyl={item} onClick={navigate} />
             })}
         </Container>
     );

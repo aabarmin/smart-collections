@@ -12,6 +12,7 @@ import { NavLink } from "react-router-dom";
 import _ from "lodash";
 import FormTextWithButton from "../component/form-text-with-button";
 import WideButton from "../component/button-wide";
+import { getImagePath } from "../actions/library";
 
 type InputTrack = {
     trackId: number;
@@ -142,17 +143,19 @@ export default function PageEdit() {
     }, [getValues, setValue]);
     const onFormSubmit: SubmitHandler<Inputs> = (data) => {
         const vinyl: Vinyl = {
-            vinylId: id, 
-            title: data.title, 
-            artist: data.artist, 
-            images: data.images.map(image => image.path),
-            cover: "", // fixit
-            sides: data.sides.map(side => ({
-                sideId: side.sideId, 
-                title: side.title, 
-                tracks: side.tracks.map(track => ({
-                    trackId: track.trackId, 
-                    title: track.title
+            vinyl_id: id, 
+            vinyl_title: data.title, 
+            vinyl_artist: data.artist, 
+            vinyl_images: data.images.map(img => ({
+                image_id: 0, 
+                image_path: img.path
+            })),
+            vinyl_sides: data.sides.map(side => ({
+                side_id: side.sideId, 
+                side_title: side.title, 
+                side_tracks: side.tracks.map(track => ({
+                    track_id: track.trackId, 
+                    track_title: track.title
                 }))
             }))
         }
@@ -164,17 +167,17 @@ export default function PageEdit() {
     useEffect(() => {
         getSingle(id)
             .then(vinyl => {
-                setValue("title", vinyl.title);
-                setValue("artist", vinyl.artist);
-                setValue("images", vinyl.images.map(img => ({
-                    path: img
+                setValue("title", vinyl.vinyl_title);
+                setValue("artist", vinyl.vinyl_artist);
+                setValue("images", vinyl.vinyl_images.map(img => ({
+                    path: img.image_path
                 })));
-                setValue("sides", vinyl.sides.map(side => ({
-                    sideId: side.sideId, 
-                    title: side.title, 
-                    tracks: side.tracks.map(track => ({
-                        trackId: track.trackId, 
-                        title: track.title
+                setValue("sides", vinyl.vinyl_sides.map(side => ({
+                    sideId: side.side_id, 
+                    title: side.side_title, 
+                    tracks: side.side_tracks.map(track => ({
+                        trackId: track.track_id, 
+                        title: track.track_title
                     }))
                 })))
             })
@@ -218,7 +221,7 @@ export default function PageEdit() {
                                     {row.map((img, imgIndex) => (
                                         <Col key={img.id} xs={4}>
                                             <Image
-                                                src={img.path}
+                                                src={getImagePath({image_id: 0, image_path: img.path})}
                                                 thumbnail
                                             />
                                         </Col>

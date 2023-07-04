@@ -23,9 +23,13 @@ return [
 
     'allowed_origins_patterns' => [],
 
-    'allowed_headers' => ['*'],
+    'allowed_headers' => [
+        'Authorization',
+        'Content-Type',
+        'Accept'
+    ],
 
-    'exposed_headers' => [],
+    'exposed_headers' => ['Location'],
 
     'max_age' => 0,
 

@@ -17,7 +17,7 @@ class TokenExchangeResource extends JsonResource
         return [
             'token' => $this->id_token,
             'token_type' => $this->token_type,
-            'expirest_at' => time() + $this->expires_in
+            'expires_at' => time() + $this->expires_in
         ];
     }
 }
