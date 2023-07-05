@@ -13,6 +13,7 @@ function frontend_prepare_env()
     touch .env
 
     echo "REACT_APP_GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}" >> .env
+    echo "REACT_APP_BACKED_URL=/api" >> .env
 
     echo "Done"
 }
