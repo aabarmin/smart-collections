@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id('user_id')->autoIncrement();
-            $table->string('email', 512)->unique()->nullable(false);
+            $table->string('email', 191)->unique()->nullable(false);
             $table->string('access_token', 1024)->nullable(false);
             $table->string('refresh_token', 1024)->nullable(false);
             $table->integer('expires_in')->nullable(false);

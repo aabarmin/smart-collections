@@ -13,6 +13,7 @@ function frontend_prepare_env()
     touch .env
 
     echo "REACT_APP_GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}" >> .env
+    echo "REACT_APP_BACKED_URL=/api" >> .env
 
     echo "Done"
 }
@@ -104,6 +105,25 @@ function backend_prepare_env()
     echo "LOG_DEPRECATIONS_CHANNEL=null" >> .env
     echo "LOG_LEVEL=debug" >> .env
 
+    echo "GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}" >> .env
+    echo "GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}" >> .env
+    echo "GOOGLE_REDIRECT_URI=${REMOTE_BASE_URL}" >> .env
+
+    echo "Done"
+}
+
+function backend_prepare_secret()
+{
+    echo "Preparing secret for DB migration"
+
+    cd $home_dir
+    cd ./backend
+
+    rm -f ./storage/app/secret_file.txt
+    touch ./storage/app/secret_file.txt
+
+    echo "${RANDOM}.${RANDOM}.${RANDOM}" >> ./storage/app/secret_file.txt
+
     echo "Done"
 }
 
@@ -135,6 +155,7 @@ function backend_cleanup()
 
 backend_build
 backend_prepare_env
+backend_prepare_secret
 
 frontend_prepare_env
 frontend_build
