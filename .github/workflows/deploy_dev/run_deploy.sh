@@ -12,10 +12,12 @@ function database_migrate()
 
     curl -X GET \
         --header "Authorization: Secret ${SECRET}" \
+        --header "Accept: application/json" \
         ${REMOTE_BASE_URL}/api/admin/migrate
 
     curl -X DELETE \
         --header "Authorization: Secret ${SECRET}" \
+        --header "Accept: application/json" \
         ${REMOTE_BASE_URL}/api/admin/cleanup
 
     echo "Done"
