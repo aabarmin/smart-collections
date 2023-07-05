@@ -66,6 +66,7 @@ jobs:
           DB_USERNAME: ${{ secrets.DB_USERNAME }}
           REMOTE_BASE_URL: ${{ secrets.REMOTE_BASE_URL }}
           GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
         
       - name: Upload via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
