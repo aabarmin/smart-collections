@@ -9,7 +9,6 @@ function database_migrate()
     cd $home_dir
     cd ./backend
     SECRET=$(cat ./storage/app/secret_file.txt)
-    echo "Secret is $SECRET"
 
     curl -X GET \
         --header "Authorization: Secret ${SECRET}" \

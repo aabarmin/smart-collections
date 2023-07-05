@@ -30,6 +30,7 @@ class AdminAuthenticate
             throw new NotAuthenticatedException("Master secret does not exist");
         }
         $saved_secret = Storage::read("secret_file.txt");
+        $saved_secret = rtrim($saved_secret, "s");
         if ($secret_token !== $saved_secret) {
             throw new NotAuthenticatedException("Secret is invalid");
         }
