@@ -74,3 +74,8 @@ jobs:
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./backend/
+
+      - name: After deploy actions
+        run: ./.github/workflows/deploy_dev/run_deploy.sh
+        env:
+          REMOTE_BASE_URL: ${{ secrets.REMOTE_BASE_URL }}
