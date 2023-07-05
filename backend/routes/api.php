@@ -33,5 +33,6 @@ Route::controller(OAuthGoogleController::class)->group(function () {
 Route::controller(ServiceController::class)->group(function () {
     Route::middleware([AdminAuthenticate::class])->group(function () {
         Route::get('/admin/migrate', 'migrate');
+        Route::delete('/admin/cleanup', 'cleanup');
     });
 });
