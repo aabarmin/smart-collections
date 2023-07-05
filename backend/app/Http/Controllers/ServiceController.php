@@ -9,7 +9,9 @@ class ServiceController extends Controller
 {
     public function migrate()
     {
-        Artisan::call("migrate");
+        Artisan::call("migrate", [
+            "--force" => true
+        ]);
         return response()->noContent();
     }
 
