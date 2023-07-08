@@ -14,6 +14,7 @@ class VinylImage extends Model
 
     protected $primaryKey = 'image_id';
     protected $fillable = [
+        'vinyl_id',
         'image_path'
     ];
 }

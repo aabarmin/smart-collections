@@ -18,7 +18,8 @@ class Vinyl extends Model
     protected $primaryKey = 'vinyl_id';
     protected $fillable = [
         'vinyl_artist',
-        'vinyl_title'
+        'vinyl_title',
+        'user_id'
     ];
 
     public function images(): HasMany

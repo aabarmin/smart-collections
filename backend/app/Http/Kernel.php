@@ -53,6 +53,8 @@ class Kernel extends HttpKernel
      */
     protected $middlewareAliases = [
         'auth' => \App\Http\Middleware\Authenticate::class,
-        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class
+        'auth.session' => \Illuminate\Session\Middleware\AuthenticateSession::class,
+        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class
     ];
 }
