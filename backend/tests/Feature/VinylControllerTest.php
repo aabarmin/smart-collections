@@ -20,24 +20,23 @@ class VinylControllerTest extends TestCase
 {
     use CreatesApplication;
 
-    private $token;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-        $user = User::factory()->create();
-        $encoder = new JwtEncoder();
-        $jwt = JwtFactory::make($user);
-        $this->token = $encoder->encode($jwt);
-    }
-
     public function test_find_all(): void
     {
-        $response = $this->get('/api/vinyls', [
-            'Authorization' => 'Bearer ' . $this->token
-        ]);
+        $user = User::factory()->create();
 
-        $response->assertStatus(200);
+        $request = [
+            'vinyl_title' => fake()->name(),
+            'vinyl_artist' => fake()->name(),
+            'vinyl_disks' => fake()->numberBetween(1, 5)
+        ];
+
+        $this->actingAs($user)
+            ->post('/library', $request)
+            ->assertStatus(302);
+
+        $this->actingAs($user)
+            ->get('/library')
+            ->assertStatus(200);
     }
 
     public function test_create_then_find(): void
@@ -45,15 +44,16 @@ class VinylControllerTest extends TestCase
         $request = [
             'vinyl_title' => fake()->name(),
             'vinyl_artist' => fake()->name(),
-            'vinyl_images' => [],
-            'vinyl_sides' => []
+            'vinyl_disks' => fake()->randomNumber(1, 5)
         ];
-        $response = $this->postJson('/api/vinyls', $request, [
-            'Authorization' => 'Bearer ' . $this->token
-        ]);
-        $response->assertStatus(201);
-        $response->assertHeader('Location');
+        $user = User::factory()->create();
+        $this->actingAs($user)
+            ->post('/library', $request)
+            ->assertStatus(302);
 
-        $location = $response->headers->get('Location');
+        $vinyl = Vinyl::whereUser($user)->firstOrFail();
+        $this->actingAs($user)
+            ->get("/library/{$vinyl->vinyl_id}")
+            ->assertStatus(200);
     }
 }
