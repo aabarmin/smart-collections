@@ -35,6 +35,6 @@ class Vinyl extends Model
 
     public static function whereUser(User $user): Collection
     {
-        return Vinyl::where('user_id', $user->user_id)->get();
+        return Vinyl::where('user_id', $user->id)->get();
     }
 }

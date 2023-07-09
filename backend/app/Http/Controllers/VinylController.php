@@ -33,7 +33,7 @@ class VinylController extends Controller
      */
     public function viewAll(Request $request)
     {
-        $records = Vinyl::where('user_id', $request->user()->user_id)
+        $records = Vinyl::where('user_id', $request->user()->id)
             ->orderByDesc('created_at')
             ->get();
         $data = [
@@ -57,7 +57,7 @@ class VinylController extends Controller
         /**
          * @var Vinyl $vinyl
          */
-        $validated['user_id'] = $request->user()->user_id;
+        $validated['user_id'] = $request->user()->id;
         $vinyl = Vinyl::create($validated);
         for ($disk = 0; $disk < $validated['vinyl_disks']; $disk++) {
             for ($side = 0; $side < 2; $side++) {
