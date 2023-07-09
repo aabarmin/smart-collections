@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->string('vinyl_title', 1024)->nullable(false);
             $table->string('vinyl_artist', 1024)->nullable(false);
             $table->foreignId('user_id')
-                ->references('user_id')
+                ->references('id')
                 ->on('users')
                 ->cascadeOnUpdate()
                 ->restrictOnDelete();
