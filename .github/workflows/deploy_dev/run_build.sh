@@ -45,7 +45,7 @@ function backend_prepare_env()
 
     echo "GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}" >> .env
     echo "GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}" >> .env
-    echo "GOOGLE_REDIRECT_URI=${REMOTE_BASE_URL}" >> .env
+    echo "GOOGLE_REDIRECT_URI=${REMOTE_BASE_URL}/login/google/callback" >> .env
 
     echo "Done"
 }
