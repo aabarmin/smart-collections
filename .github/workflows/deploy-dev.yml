@@ -42,18 +42,6 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
 
-      - name: Cache frontend dependencies
-        uses: actions/cache@v3
-        env:
-          cache-name: cache-node-modules
-        with: 
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-
       - name: Build the bundle
         run: ./.github/workflows/deploy_dev/run_build.sh
         env:
