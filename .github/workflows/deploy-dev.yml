@@ -10,6 +10,10 @@ jobs:
   deploy:
     name: Deploy to UAT
     runs-on: ubuntu-latest
+
+    environment:
+      name: Development
+
     steps:
       - name: Checkout the project
         uses: actions/checkout@v3
@@ -38,26 +42,29 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
 
-      - name: Cache frontend dependencies
-        uses: actions/cache@v3
+      - name: Build the bundle
+        run: ./.github/workflows/deploy_dev/run_build.sh
         env:
-          cache-name: cache-node-modules
-        with: 
-          path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-              
+          APP_KEY: ${{ secrets.APP_KEY }}
+          DB_CONNECTION: ${{ secrets.DB_CONNECTION }}
+          DB_DATABASE: ${{ secrets.DB_DATABASE }}
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_PORT: ${{ secrets.DB_PORT }}
+          DB_USERNAME: ${{ secrets.DB_USERNAME }}
+          REMOTE_BASE_URL: ${{ secrets.REMOTE_BASE_URL }}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+        
+      - name: Upload via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./backend/
 
-      - name: Install backend dependencies
-        run: cd ./backend && composer install
-
-      - name: Install frontend dependencies
-        run: cd ./frontend && npm install        
-
-      - name: Build frontend
-        run: cd ./frontend && npm run build
-
-      - name: Run deployment
-        run: ./.github/workflows/deploy_dev/run.sh
+      - name: After deploy actions
+        run: ./.github/workflows/deploy_dev/run_deploy.sh
+        env:
+          REMOTE_BASE_URL: ${{ secrets.REMOTE_BASE_URL }}
