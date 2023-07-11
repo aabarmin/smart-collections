@@ -28,7 +28,7 @@ jobs:
         env:
           cache-name: cache-composer
         with: 
-          path: ./backend/vendor
+          path: ./vendor
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
@@ -36,11 +36,10 @@ jobs:
             ${{ runner.os }}-
               
       - name: Install dependencies
-        run: cd ./backend && composer install
+        run: composer install
 
       - name: Run migrations for tests
         run: |
-          cd ./backend
           touch test_database.sqlite
           touch .env.testing
           echo "DB_CONNECTION=sqlite" >> .env.testing
@@ -52,9 +51,8 @@ jobs:
 
       - name: Build frontend
         run: |
-          cd ./backend
           npm install
           npm run build
 
       - name: Run tests
-        run: cd ./backend && php artisan test
+        run: php artisan test
