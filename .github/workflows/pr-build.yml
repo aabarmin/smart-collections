@@ -14,6 +14,14 @@ jobs:
       matrix:
         php_version: ['8.1', '8.2']
 
+    services:
+      mysql:
+        image: mysql
+        env:
+          MYSQL_DATABASE: vinyl
+          MYSQL_USER: vinyl
+          MYSQL_PASSWORD: vinyl
+
     steps:
       - name: Checkout the project
         uses: actions/checkout@v3
@@ -40,10 +48,13 @@ jobs:
 
       - name: Run migrations for tests
         run: |
-          touch test_database.sqlite
           touch .env.testing
-          echo "DB_CONNECTION=sqlite" >> .env.testing
-          echo "DB_DATABASE=$(pwd)/test_database.sqlite" >> .env.testing
+          echo "DB_CONNECTION=mysql" >> .env.testing
+          echo "DB_HOST=mysql" >> .env.testing
+          echo "DB_PORT=3306" >> .env.testing
+          echo "DB_DATABASE=vinyl" >> .env.testing
+          echo "DB_USERNAME=vinyl" >> .env.testing
+          echo "DB_PASSWORD=vinyl" >> .env.testing
           echo "APP_KEY=" >> .env.testing
           
           php artisan key:generate --env=testing
