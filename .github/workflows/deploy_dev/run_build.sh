@@ -7,7 +7,6 @@ function backend_build()
     echo "Building the backend"
 
     cd $home_dir
-    cd ./backend
     composer install
 
     npm install
@@ -21,7 +20,6 @@ function backend_prepare_env()
     echo "Preparing .env for backend"
 
     cd $home_dir
-    cd ./backend
 
     rm -f .env
     touch .env
@@ -55,7 +53,6 @@ function backend_prepare_secret()
     echo "Preparing secret for DB migration"
 
     cd $home_dir
-    cd ./backend
 
     rm -f ./storage/app/secret_file.txt
     touch ./storage/app/secret_file.txt
@@ -70,7 +67,6 @@ function backend_cleanup()
     echo "Removing unnecessary files"
 
     cd $home_dir
-    cd ./backend
 
     rm -rf .devcontainer
     rm -rf tests

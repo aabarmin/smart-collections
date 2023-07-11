@@ -35,7 +35,7 @@ jobs:
         env:
           cache-name: cache-composer
         with: 
-          path: ./backend/vendor
+          path: ./vendor
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
@@ -62,7 +62,7 @@ jobs:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./backend/
+          local-dir: .
 
       - name: After deploy actions
         run: ./.github/workflows/deploy_dev/run_deploy.sh

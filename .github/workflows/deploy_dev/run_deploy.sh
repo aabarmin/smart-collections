@@ -7,7 +7,6 @@ function database_migrate()
     echo "Running migrations"
 
     cd $home_dir
-    cd ./backend
     SECRET=$(cat ./storage/app/secret_file.txt)
 
     curl -X GET \
