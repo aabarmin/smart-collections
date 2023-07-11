@@ -1,7 +1,6 @@
 {
 	"name": "PHP",
 	"image": "mcr.microsoft.com/devcontainers/php:1-8.2-bullseye",
-	// "workspaceFolder": "/var/www/html",
 	// "customizations": {
 	// 	"vscode": {
 	// 		"extensions": [
@@ -27,6 +26,4 @@
 			"version": "latest"
 		}
 	}
-	// "runServices": [],
-	// "shutdownAction": "none",
 }
