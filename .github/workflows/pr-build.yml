@@ -53,7 +53,7 @@ jobs:
         run: |
           touch .env.testing
           echo "DB_CONNECTION=mysql" >> .env.testing
-          echo "DB_HOST=localhost" >> .env.testing
+          echo "DB_HOST=127.0.0.1" >> .env.testing
           echo "DB_PORT=3306" >> .env.testing
           echo "DB_DATABASE=vinyl" >> .env.testing
           echo "DB_USERNAME=vinyl" >> .env.testing
