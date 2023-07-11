@@ -15,7 +15,7 @@ jobs:
         php_version: ['8.1', '8.2']
 
     services:
-      mysql:
+      database:
         image: mysql
         env:
           MYSQL_DATABASE: vinyl
@@ -50,7 +50,7 @@ jobs:
         run: |
           touch .env.testing
           echo "DB_CONNECTION=mysql" >> .env.testing
-          echo "DB_HOST=mysql" >> .env.testing
+          echo "DB_HOST=database" >> .env.testing
           echo "DB_PORT=3306" >> .env.testing
           echo "DB_DATABASE=vinyl" >> .env.testing
           echo "DB_USERNAME=vinyl" >> .env.testing
