@@ -22,6 +22,8 @@ jobs:
           MYSQL_USER: vinyl
           MYSQL_PASSWORD: vinyl
           MYSQL_RANDOM_ROOT_PASSWORD: true
+        ports:
+          - 3306:3306
 
     steps:
       - name: Checkout the project
