@@ -11,21 +11,16 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AdminAuthenticate
 {
-    public function __construct(
-        private StringUtils $string_utils
-    ) {
-    }
-
     public function handle(Request $request, Closure $next): Response
     {
         $authorization_header = $request->header('Authorization');
         if (is_null($authorization_header)) {
             throw new NotAuthenticatedException("No Authorization header in the request");
         }
-        if (!$this->string_utils->starts_with($authorization_header, "Secret ")) {
+        if (!str_starts_with($authorization_header, "Secret ")) {
             throw new NotAuthenticatedException("Invalid type of secret is provided");
         }
-        $secret_token = $this->string_utils->substring_after($authorization_header, "Secret ");
+        $secret_token = substr($authorization_header, 7);
         if (!Storage::exists("secret_file.txt")) {
             throw new NotAuthenticatedException("Master secret does not exist");
         }

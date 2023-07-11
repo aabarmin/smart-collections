@@ -10,7 +10,8 @@
 			"extensions": [
 				"alexcvzz.vscode-sqlite",
 				"DEVSENSE.phptools-vscode",
-				"xdebug.php-debug"
+				"xdebug.php-debug",
+				"onecentlin.laravel-extension-pack"
 				// "mikestead.dotenv",
 				// "amiralizadeh9480.laravel-extra-intellisense",
 				// "ryannaddy.laravel-artisan",

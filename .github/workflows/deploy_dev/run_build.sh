@@ -2,71 +2,6 @@
 
 home_dir=$(pwd)
 
-function frontend_prepare_env()
-{
-    echo "Prepare .env for frontend"
-
-    cd $home_dir
-    cd ./frontend
-
-    rm -f .env
-    touch .env
-
-    echo "REACT_APP_GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}" >> .env
-    echo "REACT_APP_BACKED_URL=/api" >> .env
-
-    echo "Done"
-}
-
-function frontend_build() 
-{
-    echo "Building the frontend"
-
-    cd $home_dir
-
-    cd ./frontend
-    npm install
-    npm run build
-
-    echo "Done"
-}
-
-function frontend_copy()
-{
-    echo "Copy frontend to backend"
-
-    cd $home_dir
-
-    rm -rf ./backend/public/css
-    rm -rf ./backend/public/js
-    rm -f ./backend/public/favicon.ico
-
-    cp -R ./frontend/build/static/css ./backend/public/css
-    cp -R ./frontend/build/static/js ./backend/public/js
-    cp ./frontend/build/favicon.ico ./backend/public/favicon.ico
-    cp ./frontend/build/manifest.json ./backend/public/manifest.json
-    cp ./frontend/build/logo192.png ./backend/public/logo192.png
-    cp ./frontend/build/logo512.png ./backend/public/logo512.png
-
-    echo "Done"
-}
-
-function frontend_integrate()
-{
-    echo "Integrate frontend and backend"
-
-    cd $home_dir
-
-    JS_FILE=$(ls -1 ./backend/public/js | grep "main" | grep ".js" | grep -v ".js.")
-    CSS_FILE=$(ls -1 ./backend/public/css | grep "main" | grep ".css" | grep -v ".css.")
-
-    TEMPLATE_FILE=$(pwd)/backend/resources/views/welcome.blade.php
-    python3 $(pwd)/.github/workflows/deploy_dev/replace.py $TEMPLATE_FILE "<--js-resource-->" "{{ asset('js/${JS_FILE}') }}"
-    python3 $(pwd)/.github/workflows/deploy_dev/replace.py $TEMPLATE_FILE "<--css-resource-->" "{{ asset('css/${CSS_FILE}') }}"
-
-    echo "Done"
-}
-
 function backend_build() 
 {
     echo "Building the backend"
@@ -74,6 +9,9 @@ function backend_build()
     cd $home_dir
     cd ./backend
     composer install
+
+    npm install
+    npm run build
 
     echo "Done"
 }
@@ -107,7 +45,7 @@ function backend_prepare_env()
 
     echo "GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}" >> .env
     echo "GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}" >> .env
-    echo "GOOGLE_REDIRECT_URI=${REMOTE_BASE_URL}" >> .env
+    echo "GOOGLE_REDIRECT_URI=${REMOTE_BASE_URL}/login/google/callback" >> .env
 
     echo "Done"
 }
@@ -156,10 +94,5 @@ function backend_cleanup()
 backend_build
 backend_prepare_env
 backend_prepare_secret
-
-frontend_prepare_env
-frontend_build
-frontend_copy
-frontend_integrate
 
 backend_cleanup

@@ -11,12 +11,10 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id('user_id')->autoIncrement();
-            $table->string('email', 191)->unique()->nullable(false);
-            $table->string('access_token', 1024)->nullable(false);
-            $table->string('refresh_token', 1024)->nullable(false);
-            $table->integer('expires_in')->nullable(false);
-            $table->integer('expires_at')->nullable(false);
+            $table->id('id')->autoIncrement();
+            $table->string('user_email', 191)->unique()->nullable(false);
+            $table->string('user_name', 1024)->nullable(false);
+            $table->string('remember_token', 1024)->nullable();
             $table->timestamps();
         });
     }

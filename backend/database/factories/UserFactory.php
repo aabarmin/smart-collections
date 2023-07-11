@@ -16,14 +16,9 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
-        $expires_in = fake()->randomNumber(3);
-
         return [
-            'email' => fake()->unique()->safeEmail(),
-            'access_token' => fake()->randomAscii(),
-            'refresh_token' => fake()->randomAscii(),
-            'expires_in' => $expires_in,
-            'expires_at' => time() + $expires_in
+            'user_email' => fake()->unique()->safeEmail(),
+            'user_name' => fake()->name()
         ];
     }
 }
