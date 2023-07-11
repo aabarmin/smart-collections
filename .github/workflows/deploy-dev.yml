@@ -62,7 +62,7 @@ jobs:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: .
+          local-dir: ./
 
       - name: After deploy actions
         run: ./.github/workflows/deploy_dev/run_deploy.sh
