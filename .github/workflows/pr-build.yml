@@ -21,6 +21,7 @@ jobs:
           MYSQL_DATABASE: vinyl
           MYSQL_USER: vinyl
           MYSQL_PASSWORD: vinyl
+          MYSQL_RANDOM_ROOT_PASSWORD: true
 
     steps:
       - name: Checkout the project
