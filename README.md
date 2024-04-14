@@ -1,1 +1,0 @@
-To start debugging add `XDEBUG_SESSION=session_name` to the request. 
