@@ -12,7 +12,9 @@ Main features:
 
 This should be a separate module to be reused in my other projects. 
 
-- [ ] Login via Google, when logged in a new record in the database is created.
+- [x] Login via Google
+- [ ] Enable new user with login/password registration
+- [ ] Fancy login page
 - [ ] Email and login registration
 
 ### Collections
