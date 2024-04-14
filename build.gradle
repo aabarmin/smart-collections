@@ -10,15 +10,15 @@ subprojects {
 		mavenCentral()
 	}
 
-	apply {
-		plugin 'java'
-	}
-
-	java {
-		sourceCompatibility = JavaVersion.VERSION_17
-	}
-
-	tasks.named('test') {
-		useJUnitPlatform()
-	}
+//	apply {
+//		plugin 'java'
+//	}
+//
+//	java {
+//		sourceCompatibility = JavaVersion.VERSION_17
+//	}
+//
+//	tasks.named('test') {
+//		useJUnitPlatform()
+//	}
 }
