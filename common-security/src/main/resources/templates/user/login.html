@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en"
+      layout:decorate="~{security_layout.html}"
+      xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="">
+<head>
+    <title>Please Log In</title>
+</head>
+<body>
+<th:block layout:fragment="main-content">
+    <h1>Please Log In</h1>
+    <div th:if="${param.error}">
+        Invalid username and password.</div>
+    <div th:if="${param.logout}">
+        You have been logged out.</div>
+
+    <a th:href="@{/register}">
+        Register
+    </a>
+
+    <form th:action="@{/templates/user}" method="post">
+        <div>
+            <input type="text" name="username" placeholder="Username"/>
+        </div>
+        <div>
+            <input type="password" name="password" placeholder="Password"/>
+        </div>
+        <input type="submit" value="Log in" />
+
+        <a th:href="@{/oauth2/authorization/google}">Login with Google</a>
+    </form>
+</th:block>
+</body>
+</html>

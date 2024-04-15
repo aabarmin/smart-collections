@@ -11,7 +11,7 @@ public class UserInfoConverter {
     public UserInfo convert(UserEntity entity) {
         return UserInfo.builder()
                 .activated(entity.isActivated())
-                .username(entity.getUsername())
+                .username(entity.getEmail())
                 .password(entity.getPassword())
                 .authorities(entity.getAuthorities().stream().map(this::convert).toList())
                 .build();

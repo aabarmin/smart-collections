@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en"
+      layout:decorate="~{security_layout.html}"
+      xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Registration</title>
+</head>
+<body>
+<th:block layout:fragment="main-content">
+    <h1>Registration</h1>
+
+    <form th:action="@{/register}" th:object="${form}" method="post">
+        <div>
+            <input type="text" th:field="*{fullName}" placeholder="Full Name"/>
+            <p th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}" />
+        </div>
+        <div>
+            <input type="text" th:field="*{email}" placeholder="Email"/>
+            <p th:if="${#fields.hasErrors('email')}">Email errors</p>
+        </div>
+        <div>
+            <input type="password" th:field="*{password}" placeholder="Password"/>
+            <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" />
+        </div>
+        <input type="submit" value="Register" />
+
+        <a th:href="@{/login}">Back to login</a>
+    </form>
+</th:block>
+</body>
+</html>

@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.SecurityFilterChain;
 
 import static dev.abarmin.common.security.controller.LoginController.LOGIN_ENDPOINT;
+import static dev.abarmin.common.security.controller.RegistrationController.REGISTRATION_ENDPOINT;
 
 @EnableWebSecurity
 @AutoConfiguration
@@ -30,6 +31,8 @@ public class CommonSecurityAutoConfiguration {
         return http
                 .authorizeHttpRequests(authorise -> authorise
                         .requestMatchers("/webjars/**").permitAll()
+                        .requestMatchers(REGISTRATION_ENDPOINT).permitAll()
+                        .requestMatchers("/error").permitAll()
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
                 .formLogin(login -> login

@@ -7,5 +7,6 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.Optional;
 
 public interface UserEntityRepository extends CrudRepository<UserEntity, Integer> {
-    Optional<UserEntity> findByUsernameAndAuthType(String username, AuthType authType);
+    Optional<UserEntity> findByEmailAndAuthType(String email, AuthType authType);
+    Optional<UserEntity> findByEmail(String email);
 }

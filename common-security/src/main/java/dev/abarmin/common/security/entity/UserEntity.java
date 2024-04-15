@@ -18,8 +18,11 @@ public class UserEntity {
     @Column("ID")
     private int id;
 
-    @Column("USERNAME")
-    private String username;
+    @Column("EMAIL")
+    private String email;
+
+    @Column("FULL_NAME")
+    private String fullName;
 
     @Column("PASSWORD")
     private String password;

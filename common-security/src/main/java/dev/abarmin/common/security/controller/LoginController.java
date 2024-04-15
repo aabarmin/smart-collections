@@ -9,7 +9,7 @@ public class LoginController {
     public static final String LOGIN_ENDPOINT = "/login";
     @GetMapping(LOGIN_ENDPOINT)
     public ModelAndView login(ModelAndView modelAndView) {
-        modelAndView.setViewName("login/login");
+        modelAndView.setViewName("user/login");
         return modelAndView;
     }
 }

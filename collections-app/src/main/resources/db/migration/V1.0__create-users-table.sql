@@ -1,7 +1,8 @@
 create table USERS
 (
     ID         INTEGER auto_increment,
-    USERNAME   varchar(255) not null,
+    EMAIL       varchar(255) not null,
+    FULL_NAME   varchar(255) not null,
     PASSWORD   varchar(255),
     ACTIVATED  boolean default false,
     AUTH_TYPE  varchar(32)  not null,
@@ -12,5 +13,5 @@ create table USERS
 );
 
 create index username_unique
-    on USERS (USERNAME);
+    on USERS (EMAIL);
 
