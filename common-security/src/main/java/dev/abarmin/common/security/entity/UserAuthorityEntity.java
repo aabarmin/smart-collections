@@ -1,6 +1,9 @@
 package dev.abarmin.common.security.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -11,6 +14,9 @@ import org.springframework.data.relational.core.mapping.Table;
 import java.time.LocalDateTime;
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table("USER_AUTHORITIES")
 public class UserAuthorityEntity {
     @Id
@@ -24,8 +30,9 @@ public class UserAuthorityEntity {
     private String authority;
 
     @CreatedDate
+    @Builder.Default
     @Column("CREATED_AT")
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @LastModifiedDate
     @Column("UPDATED_AT")

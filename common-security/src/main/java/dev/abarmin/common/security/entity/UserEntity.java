@@ -43,8 +43,9 @@ public class UserEntity {
     private Set<UserAuthorityEntity> authorities;
 
     @CreatedDate
+    @Builder.Default
     @Column("CREATED_AT")
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @LastModifiedDate
     @Column("UPDATED_AT")
