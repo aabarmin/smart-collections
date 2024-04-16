@@ -34,7 +34,6 @@ public class RegistrationController {
     public String tryRegister(@Valid @ModelAttribute("form") UserRegistration form,
                               BindingResult bindingResult) {
 
-        // check if user exists
         if (userRepository.findByEmail(form.getEmail()).isPresent()) {
             bindingResult.addError(new FieldError(
                     "form",
@@ -43,14 +42,11 @@ public class RegistrationController {
         }
 
         if (bindingResult.hasErrors()) {
-//            modelAndView.addObject("form", bindingResult.getModel());
-//            modelAndView.setViewName("user/registration_form");
             return "user/registration_form";
         }
 
         // create a new user
-//        userRepository.save(converter.convert(form));
-//        modelAndView.setViewName("user/registration_success");
+        userRepository.save(converter.convert(form));
         return "user/registration_success";
     }
 

@@ -16,7 +16,7 @@
         </div>
         <div>
             <input type="text" th:field="*{email}" placeholder="Email"/>
-            <p th:if="${#fields.hasErrors('email')}">Email errors</p>
+            <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" />
         </div>
         <div>
             <input type="password" th:field="*{password}" placeholder="Password"/>

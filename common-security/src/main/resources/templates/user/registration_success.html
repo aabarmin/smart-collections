@@ -7,22 +7,9 @@
 </head>
 <body>
 <th:block layout:fragment="main-content">
-    <h1>Please Log In</h1>
-    <div th:if="${param.error}">
-        Invalid username and password.</div>
-    <div th:if="${param.logout}">
-        You have been logged out.</div>
-    <form th:action="@{/templates/user}" method="post">
-        <div>
-            <input type="text" name="username" placeholder="Username"/>
-        </div>
-        <div>
-            <input type="password" name="password" placeholder="Password"/>
-        </div>
-        <input type="submit" value="Log in" />
+    <h1>You have successfully registered</h1>
 
-        <a th:href="@{/oauth2/authorization/google}">Login with Google</a>
-    </form>
+    No you may <a th:href="@{/login}">log in</a>
 </th:block>
 </body>
 </html>
