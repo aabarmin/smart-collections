@@ -1,4 +1,5 @@
 rootProject.name = 'smart-collections'
 
 include "common-security"
+include "common-upload"
 include "collections-app"
