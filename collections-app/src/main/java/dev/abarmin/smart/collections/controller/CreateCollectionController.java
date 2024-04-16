@@ -1,6 +1,5 @@
 package dev.abarmin.smart.collections.controller;
 
-import dev.abarmin.common.security.service.SessionService;
 import dev.abarmin.smart.collections.controller.converter.CollectionFormConverter;
 import dev.abarmin.smart.collections.controller.model.CollectionForm;
 import dev.abarmin.smart.collections.repository.CollectionRepository;
