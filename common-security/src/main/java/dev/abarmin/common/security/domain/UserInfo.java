@@ -13,7 +13,9 @@ import java.util.Collection;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserInfo implements UserDetails {
+    private int id;
     private String username;
+
     private String password;
     private boolean activated;
     private Collection<UserAuthority> authorities;

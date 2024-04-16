@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en"
+      layout:decorate="~{security_layout.html}"
+      xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="">
+<head>
+    <title>My collections</title>
+</head>
+<body>
+<th:block layout:fragment="main-content">
+    <h1>Create a new collection</h1>
+
+    <ul>
+        <li>
+            <a th:href="@{/my}">Back</a>
+        </li>
+    </ul>
+
+    <form method="post" th:action="@{/collections}" th:object="${form}">
+        <input type="hidden" th:field="*{id}">
+
+        <label for="name">Name:</label>
+        <input type="text" id="name" th:field="*{name}"/>
+        <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" />
+
+        <button type="submit">Create</button>
+    </form>
+</th:block>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en"
+      layout:decorate="~{security_layout.html}"
+      xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="">
+<head>
+    <title>My collections</title>
+</head>
+<body>
+<th:block layout:fragment="main-content">
+    <h1>My collections</h1>
+
+    <ul>
+        <li>
+            <a th:href="@{/collections/new}">Create a new collection</a>
+        </li>
+    </ul>
+
+    <p th:if="${#lists.isEmpty(collections)}">
+        You don't have any collections yet, don't you want to <a th:href="@{/collections/new}">create a new one</a>?
+    </p>
+
+    <table th:if="${not #lists.isEmpty(collections)}">
+        <tr>
+            <th>Name</th>
+        </tr>
+        <tr th:each="collection : ${collections}">
+            <td th:text="${collection.name}"/>
+        </tr>
+    </table>
+</th:block>
+</body>
+</html>

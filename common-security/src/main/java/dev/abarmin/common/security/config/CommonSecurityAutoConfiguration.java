@@ -21,6 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import static dev.abarmin.common.security.controller.LoginController.LOGGED_ENDPOINT;
 import static dev.abarmin.common.security.controller.LoginController.LOGIN_ENDPOINT;
 import static dev.abarmin.common.security.controller.RegistrationController.REGISTRATION_ENDPOINT;
 
@@ -58,9 +59,11 @@ public class CommonSecurityAutoConfiguration {
                 .httpBasic(Customizer.withDefaults())
                 .formLogin(login -> login
                         .loginPage(LOGIN_ENDPOINT)
+                        .successForwardUrl(LOGGED_ENDPOINT)
                         .permitAll())
                 .oauth2Login(login -> login
                         .successHandler(successAuthHandler)
+                        .defaultSuccessUrl(LOGGED_ENDPOINT)
                         .loginPage(LOGIN_ENDPOINT))
                 .build();
     }
@@ -71,7 +74,7 @@ public class CommonSecurityAutoConfiguration {
     }
 
     @Bean
-    public UserDetailsService userDetailsService(
+    public CustomUserDetailsService userDetailsService(
             UserEntityRepository userRepository,
             UserInfoConverter userConverter) {
         return new CustomUserDetailsService(userRepository, userConverter);

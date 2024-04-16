@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 public class UserInfoConverter {
     public UserInfo convert(UserEntity entity) {
         return UserInfo.builder()
+                .id(entity.getId())
                 .activated(entity.isActivated())
                 .username(entity.getEmail())
                 .password(entity.getPassword())
