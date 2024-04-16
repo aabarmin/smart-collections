@@ -13,15 +13,16 @@ Main features:
 This should be a separate module to be reused in my other projects. 
 
 - [x] Login via Google
-- [ ] Enable new user with login/password registration
+- [x] Enable new user with login/password registration
 - [ ] Fancy login page
-- [ ] Email and login registration
+- [x] Email and login registration
 
 ### Collections
 
-- [ ] Create a collection
-- [ ] View a list of collections
-- [ ] Add a vinyl to the collection
+- [x] Create a collection
+- [x] View a list of collections
+- [x] Add a vinyl to the collection
+- [ ] Add a cover to the vinyl
 - [ ] Share a collection with somebody (read/write permissions)
 
 ### Public pages
@@ -30,7 +31,7 @@ This should be a separate module to be reused in my other projects.
 
 ### Mobile
 
-- [ ] Should look pretty on mobile
+- [ ] Should look pretty on mobile first
 
 ### Profile
 
