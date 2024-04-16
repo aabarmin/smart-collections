@@ -17,6 +17,13 @@ public class CollectionFormConverter {
     private final SessionService sessionService;
     private final CollectionRepository repository;
 
+    public CollectionForm convert(CollectionEntity entity) {
+        return CollectionForm.builder()
+                .id(entity.getId())
+                .name(entity.getName())
+                .build();
+    }
+
     public CollectionEntity convert(CollectionForm form) {
         final CollectionEntity entity;
         if (form.getId() == 0) {

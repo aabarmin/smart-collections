@@ -19,14 +19,33 @@
         You don't have any collections yet, don't you want to <a th:href="@{/collections/new}">create a new one</a>?
     </p>
 
-    <table th:if="${not #lists.isEmpty(collections)}">
-        <tr>
-            <th>Name</th>
-        </tr>
-        <tr th:each="collection : ${collections}">
-            <td th:text="${collection.name}"/>
-        </tr>
-    </table>
+    <th:block th:if="${not #lists.isEmpty(collections)}">
+        <table th:each="collection : ${collections}" th:class="table">
+            <tr>
+                <td th:text="${collection.getName()}" />
+            </tr>
+            <tr>
+                <td>
+                    <ul>
+                        <li>
+                            <a th:href="@{/collections/{id}/edit(id=${collection.getId()})}">Edit</a>
+                        </li>
+                        <li>
+                            <a th:href="@{/collections/{id}/albums/add(id=${collection.getId()})}">Add album</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <ul>
+                        <li th:each="item : ${collection.getCollectionItems()}"
+                            th:text="${item.getArtist() + ' - ' + item.getAlbum()}" />
+                    </ul>
+                </td>
+            </tr>
+        </table>
+    </th:block>
 </th:block>
 </body>
 </html>

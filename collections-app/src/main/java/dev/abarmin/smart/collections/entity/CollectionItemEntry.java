@@ -1,6 +1,5 @@
 package dev.abarmin.smart.collections.entity;
 
-import dev.abarmin.common.security.entity.UserEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,26 +13,25 @@ import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDateTime;
-import java.util.Set;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table("COLLECTIONS")
-public class CollectionEntity {
+@Table("COLLECTION_ITEMS")
+public class CollectionItemEntry {
     @Id
     @Column("ID")
     private int id;
 
-    @Column("USER_ID")
-    private AggregateReference<UserEntity, Integer> userId;
+    @Column("COLLECTION_ID")
+    private AggregateReference<CollectionEntity, Integer> collectionId;
 
-    @MappedCollection(idColumn = "COLLECTION_ID")
-    private Set<CollectionItemEntry> collectionItems;
+    @Column("ARTIST")
+    private String artist;
 
-    @Column("NAME")
-    private String name;
+    @Column("ALBUM")
+    private String album;
 
     @Column("DELETED")
     @Builder.Default
