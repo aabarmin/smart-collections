@@ -59,7 +59,7 @@
                         "Content-Type": "multipart/form-data"
                     })
                     .then(response => {
-                        debugger;
+                        $("#cover").val(response.data.id);
                     })
             });
         });

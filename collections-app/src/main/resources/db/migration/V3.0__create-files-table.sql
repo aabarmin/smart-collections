@@ -13,5 +13,5 @@ create table FILES
 );
 
 create index FILES_USER_ID__index
-    on COLLECTIONS (USER_ID);
+    on FILES (USER_ID);
 

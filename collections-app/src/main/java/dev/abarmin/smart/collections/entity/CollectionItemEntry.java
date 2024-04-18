@@ -1,5 +1,6 @@
 package dev.abarmin.smart.collections.entity;
 
+import dev.abarmin.common.upload.entity.FileEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -32,6 +33,9 @@ public class CollectionItemEntry {
 
     @Column("ALBUM")
     private String album;
+
+    @Column("COVER_FILE_ID")
+    private AggregateReference<FileEntity, Integer> coverFileId;
 
     @Column("DELETED")
     @Builder.Default
