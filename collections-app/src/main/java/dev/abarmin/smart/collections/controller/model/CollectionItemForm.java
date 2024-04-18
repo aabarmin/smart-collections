@@ -1,5 +1,6 @@
 package dev.abarmin.smart.collections.controller.model;
 
+import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
@@ -19,4 +20,6 @@ public class CollectionItemForm {
     private String album;
     @NotEmpty
     private String artist;
+    @Nullable
+    private Integer coverId;
 }

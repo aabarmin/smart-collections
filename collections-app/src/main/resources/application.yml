@@ -10,10 +10,17 @@ spring:
     url: jdbc:h2:./database
     username: sa
     password: sa
-
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 2MB
+      max-request-size: 3MB
 logging:
   level:
     org:
       springframework:
         security: INFO
         jdbc: DEBUG
+smart-collections:
+  file-upload:
+    storage: ./storage

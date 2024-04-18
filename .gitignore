@@ -41,3 +41,6 @@ out/
 ### Database ###
 database.mv.db
 database.trace.db
+
+### File storage ###
+storage

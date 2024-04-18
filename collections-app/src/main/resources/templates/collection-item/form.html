@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
-      layout:decorate="~{security_layout.html}"
+      layout:decorate="~{private_layout.html}"
       xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="">
 <head>
     <title>My collections</title>
@@ -24,14 +24,46 @@
 
         <label for="artist">Artist:</label>
         <input type="text" id="artist" th:field="*{artist}"/>
-        <p th:if="${#fields.hasErrors('artist')}" th:errors="*{artist}" />
+        <p th:if="${#fields.hasErrors('artist')}" th:errors="*{artist}"/>
 
         <label for="album">Album:</label>
         <input type="text" id="album" th:field="*{album}"/>
-        <p th:if="${#fields.hasErrors('album')}" th:errors="*{album}" />
+        <p th:if="${#fields.hasErrors('album')}" th:errors="*{album}"/>
+
+        <label for="cover">Cover:</label>
+        <input type="hidden" id="cover" th:field="*{coverId}"/>
+        <input type="file" id="cover-upload" style="display: none"/>
+        <button type="button" id="cover-select">Select cover</button>
 
         <button type="submit">Create</button>
     </form>
+
+    <script>
+        $(document).ready(function () {
+            $("#cover-select").click(function (e) {
+                e.preventDefault();
+                $("#cover-upload").click();
+            });
+
+            $("#cover-upload").change(function (event) {
+                if (!event.target.files || event.target.files.length == 0) {
+                    return;
+                }
+
+                const file = event.target.files[0];
+                const formData = new FormData();
+                formData.append("file", file);
+
+                axios
+                    .post("/files/upload-single", formData, {
+                        "Content-Type": "multipart/form-data"
+                    })
+                    .then(response => {
+                        debugger;
+                    })
+            });
+        });
+    </script>
 </th:block>
 </body>
 </html>

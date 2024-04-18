@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Smart Collections Login</title>
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/dist/css/bootstrap.css}" />
-    <script th:src="@{/webjars/bootstrap/5.3.3/dist/js/bootstrap.bundle.min.js}"></script>
+    <script type="application/javascript" th:src="@{/webjars/bootstrap/5.3.3/dist/js/bootstrap.bundle.min.js}"></script>
+    <script type="application/javascript" th:src="@{/webjars/jquery/3.7.1/dist/jquery.js}"></script>
+    <script type="application/javascript" th:src="@{/webjars/axios/1.6.8/dist/axios.js}"></script>
 </head>
 <body>
 
@@ -28,6 +32,15 @@
         </p>
     </div>
 </div>
+
+<script>
+    $(document).ready(function(){
+        const token = $("meta[name='_csrf']").attr("content");
+        const header = $("meta[name='_csrf_header']").attr("content");
+
+        axios.defaults.headers.common[header] = token;
+    });
+</script>
 
 </body>
 </html>
