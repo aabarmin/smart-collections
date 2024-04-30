@@ -7,13 +7,28 @@
 </head>
 <body>
 <th:block layout:fragment="main-content">
-    <h1>Add a new album</h1>
-
-    <ul>
-        <li>
-            <a th:href="@{/my}">Back</a>
-        </li>
-    </ul>
+    <div class="row">
+        <div class="col-2">
+            <a th:href="@{/my}" class="btn btn-primary">
+                <i class="bi bi-arrow-left-circle"></i>
+            </a>
+        </div>
+        <div th:class="${form.getId == 0 ? 'col-10' : 'col-8'}">
+            <h1 th:if="${form.getId() == 0}">
+                Create a new album
+            </h1>
+            <h1 th:if="${form.getId() != 0}">
+                Edit album
+            </h1>
+        </div>
+        <div class="col-2 text-end" th:if="${form.getId() != 0}">
+            <a onclick="return confirm('Are you sure?')"
+               th:href="@{/collections/{collectionId}/albums/{albumId}/delete(collectionId=${form.getCollectionId()},albumId=${form.getId()})}"
+               class="btn btn-outline-danger">
+                <i class="bi bi-trash"></i>
+            </a>
+        </div>
+    </div>
 
     <form method="post"
           th:action="@{/collections/{id}/albums(id=${form.getCollectionId()})}"
@@ -22,20 +37,65 @@
         <input type="hidden" th:field="*{id}">
         <input type="hidden" th:field="*{collectionId}">
 
-        <label for="artist">Artist:</label>
-        <input type="text" id="artist" th:field="*{artist}"/>
-        <p th:if="${#fields.hasErrors('artist')}" th:errors="*{artist}"/>
+        <div class="row">
+            <div class="col">
+                <label for="artist" class="form-label">Artist:</label>
+                <input type="text"
+                       placeholder="Artist's name"
+                       th:class="'form-control ' + ${#fields.hasErrors('artist') ? 'is-invalid' : ''}"
+                       th:field="*{artist}"/>
+                <div class="invalid-feedback"
+                     th:if="${#fields.hasErrors('artist')}"
+                     th:errors="*{artist}" />
+            </div>
+        </div>
 
-        <label for="album">Album:</label>
-        <input type="text" id="album" th:field="*{album}"/>
-        <p th:if="${#fields.hasErrors('album')}" th:errors="*{album}"/>
+        <div class="row">
+            <div class="col">
+                <label for="album" class="form-label">Album:</label>
+                <input type="text"
+                       placeholder="Album"
+                       th:class="'form-control ' + ${#fields.hasErrors('album') ? 'is-invalid' : ''}"
+                       th:field="*{album}"/>
+                <div class="invalid-feedback"
+                     th:if="${#fields.hasErrors('album')}"
+                     th:errors="*{album}" />
+            </div>
+        </div>
 
-        <label for="cover">Cover:</label>
-        <input type="hidden" id="cover" th:field="*{coverId}"/>
-        <input type="file" id="cover-upload" style="display: none"/>
-        <button type="button" id="cover-select">Select cover</button>
+        <div class="row">
+            <div class="col">
+                <input type="hidden" id="cover" th:field="*{coverId}"/>
+                <input type="file" id="cover-upload" style="display: none"/>
 
-        <button type="submit">Create</button>
+                <label for="cover" class="form-label">Cover:</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col d-grid">
+                <img id="cover-preview"
+                     th:attr="
+                        src=${form.getCoverId() == 0 ? '' : '/images/' + form.getCoverId() + '/thumbnail'},
+                        style=${form.getCoverId() == 0 ? 'display: none' : ''}"
+                     class="img-thumbnail"/>
+                <button type="button"
+                        class="btn btn-outline-primary"
+                        th:text="${form.getCoverId() == 0 ? 'Select cover' : 'Change cover'}"
+                        id="cover-select" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                &nbsp;
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col d-grid">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </div>
     </form>
 
     <script>
@@ -60,6 +120,9 @@
                     })
                     .then(response => {
                         $("#cover").val(response.data.id);
+                        $("#cover-select").hide();
+                        $("#cover-preview").show();
+                        $("#cover-preview").attr("src", "/images/" + response.data.id + "/thumbnail");
                     })
             });
         });

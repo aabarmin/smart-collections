@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Smart Collections Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="_csrf" th:content="${_csrf.token}" />
     <meta name="_csrf_header" th:content="${_csrf.headerName}" />
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.3/dist/css/bootstrap.css}" />
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap-icons/1.11.3/font/bootstrap-icons.css}" />
     <script type="application/javascript" th:src="@{/webjars/bootstrap/5.3.3/dist/js/bootstrap.bundle.min.js}"></script>
     <script type="application/javascript" th:src="@{/webjars/jquery/3.7.1/dist/jquery.js}"></script>
     <script type="application/javascript" th:src="@{/webjars/axios/1.6.8/dist/axios.js}"></script>
@@ -21,11 +23,21 @@
                     <a class="nav-link" th:href="@{/}">Home</a>
                 </li>
             </ul>
+            <div class="d-flex">
+                <a th:href="@{/logout}" class="nav-link">
+                    Logout
+                </a>
+            </div>
         </div>
     </div>
 </nav>
 
 <div class="container">
+    <div class="row">
+        <div class="col">
+            &nbsp;
+        </div>
+    </div>
     <div layout:fragment="main-content">
         <p>
             Main content goes here

@@ -1,50 +1,86 @@
 <!DOCTYPE html>
 <html lang="en"
-      layout:decorate="~{security_layout.html}"
+      layout:decorate="~{private_layout.html}"
       xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="">
 <head>
     <title>My collections</title>
 </head>
 <body>
 <th:block layout:fragment="main-content">
-    <h1>My collections</h1>
+    <div class="row">
+        <div class="col-2">
+            <a class="btn btn-primary" th:href="@{/collections/new}">
+                <i class="bi bi-plus-circle"></i>
+            </a>
+        </div>
+        <div class="col-10">
+            <h1>
+                My collections
+            </h1>
+        </div>
+    </div>
 
-    <ul>
-        <li>
-            <a th:href="@{/collections/new}">Create a new collection</a>
-        </li>
-    </ul>
-
-    <p th:if="${#lists.isEmpty(collections)}">
-        You don't have any collections yet, don't you want to <a th:href="@{/collections/new}">create a new one</a>?
-    </p>
+    <div class="row" th:if="${#lists.isEmpty(collections)}">
+        <div class="col">
+            <div class="alert alert-primary">
+                You don't have any collections yet, don't you want to <a th:href="@{/collections/new}">create a new one</a>?
+            </div>
+        </div>
+    </div>
 
     <th:block th:if="${not #lists.isEmpty(collections)}">
-        <table th:each="collection : ${collections}" th:class="table">
-            <tr>
-                <td th:text="${collection.getName()}" />
-            </tr>
-            <tr>
-                <td>
-                    <ul>
-                        <li>
-                            <a th:href="@{/collections/{id}/edit(id=${collection.getId()})}">Edit</a>
-                        </li>
-                        <li>
-                            <a th:href="@{/collections/{id}/albums/add(id=${collection.getId()})}">Add album</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <ul>
-                        <li th:each="item : ${collection.getCollectionItems()}"
-                            th:text="${item.getArtist() + ' - ' + item.getAlbum()}" />
-                    </ul>
-                </td>
-            </tr>
-        </table>
+        <div class="accordion" id="collections">
+            <div class="accordion-item" th:each="collection : ${collections}">
+                <h2 class="accordion-header">
+                    <button class="accordion-button"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            th:attr="data-bs-target='#collection-${collection.getId()}'">
+
+                        <a th:href="@{/collections/{id}/edit(id=${collection.getId()})}">
+                            <i class="bi bi-pencil"></i>
+                        </a>
+                        &nbsp;
+                        <span th:text="${collection.getName()}" />
+                    </button>
+                </h2>
+                <div class="accordion-collapse collapse show"
+                     data-bs-parent="#collections"
+                     th:attr="id='collection-${collection.getId()}'">
+                    <div class="accordion-body">
+                        <div class="alert alert-primary" th:if="${#lists.isEmpty(collection.getAlbums())}">
+                            You don't have albums in this collection, but you can
+                            <a th:href="@{/collections/{id}/albums/add(id=${collection.getId()})}">add one</a>.
+                        </div>
+
+                        <div class="row" th:if="${not #lists.isEmpty(collection.getAlbums())}">
+                            <div class="col-6 col-md-3"
+                                 style="padding-bottom: 16px;"
+                                 th:each="item : ${collection.getAlbums()}">
+                                <div class="card">
+                                    <img class="card-image-top"
+                                         th:src="${item.getCover()}" />
+                                    <div class="card-body">
+                                        <h5 class="card-title" th:text="${item.getAlbum()}"></h5>
+                                        <a th:href="@{/collections/{collectionId}/albums/{albumId}(collectionId=${collection.getId},albumId=${item.getId()})}"
+                                           class="card-text" th:text="${item.getArtist()}" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col d-grid">
+                                <a th:href="@{/collections/{id}/albums/add(id=${collection.getId()})}"
+                                   class="btn btn-primary">
+                                    Add a new album
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </th:block>
 </th:block>
 </body>

@@ -11,8 +11,10 @@ dependencies {
     implementation 'org.flywaydb:flyway-core'
     runtimeOnly 'com.h2database:h2'
 
+    // js libs
     runtimeOnly("org.webjars.npm:jquery:3.7.1")
     runtimeOnly("org.webjars.npm:axios:1.6.8")
+    runtimeOnly("org.webjars.npm:bootstrap-icons:1.11.3")
 
     // data access
     implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'

@@ -27,6 +27,9 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
+    // image processing
+    implementation 'org.imgscalr:imgscalr-lib:4.2'
+
     // testing
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
