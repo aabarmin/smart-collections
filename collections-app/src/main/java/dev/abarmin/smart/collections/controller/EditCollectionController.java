@@ -33,7 +33,7 @@ public class EditCollectionController {
     }
 
     @GetMapping("/collections/new")
-    public String newCollection() {
+    public String newCollection(Model model) {
         return "collection/form";
     }
 
@@ -47,6 +47,18 @@ public class EditCollectionController {
         }
         model.addAttribute("form", converter.convert(collection));
         return "collection/form";
+    }
+
+    @GetMapping("/collections/{id}/delete")
+    public String deleteCollection(@PathVariable("id") int collectionId) {
+        final UserInfo userInfo = sessionService.getCurrentUser().orElseThrow(NoCurrentUserException::new);
+        final CollectionEntity collection = collectionRepository.findById(collectionId).orElseThrow();
+        if (!accessService.hasAccess(userInfo, collection)) {
+            throw new NoAccessException();
+        }
+        collection.setDeleted(true);
+        collectionRepository.save(collection);
+        return "redirect:/my";
     }
 
     @PostMapping("/collections")
