@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class CollectionModelConverter {
-    private static final String NO_COVER = "/img/no-cover.jpg";
+    private static final String NO_COVER = "/img/private/no-cover.jpg";
 
     public CollectionModel convert(CollectionEntity collection) {
         return CollectionModel.builder()

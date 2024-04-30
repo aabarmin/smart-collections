@@ -55,6 +55,9 @@ public class CommonSecurityAutoConfiguration {
                         .requestMatchers("/webjars/**").permitAll()
                         .requestMatchers(REGISTRATION_ENDPOINT).permitAll()
                         .requestMatchers("/error").permitAll()
+                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/public/**").permitAll()
+                        .requestMatchers("/img/public/**").permitAll()
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())
                 .formLogin(login -> login
