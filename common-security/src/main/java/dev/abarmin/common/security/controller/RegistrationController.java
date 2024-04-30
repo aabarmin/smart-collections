@@ -29,7 +29,7 @@ public class RegistrationController {
 
     @GetMapping(REGISTRATION_ENDPOINT)
     public String registerForm(@ModelAttribute("form") UserRegistration form,
-                               @RequestParam("email") String email) {
+                               @RequestParam(value = "email", required = false) String email) {
 
         if (StringUtils.isNoneEmpty(email)) {
             form.setEmail(email);
