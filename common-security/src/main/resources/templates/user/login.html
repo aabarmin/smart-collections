@@ -8,13 +8,13 @@
 <body>
 <th:block layout:fragment="main-content">
     <div class="row">
-        <div class="sm-12">
+        <div class="col-sm-12 col-md-6 offset-md-3">
             &nbsp;
         </div>
     </div>
 
     <div class="row">
-        <div class="sm-12">
+        <div class="col-sm-12 col-md-6 offset-md-3">
             <h2>
                 Log in to your account
             </h2>
@@ -22,7 +22,7 @@
     </div>
 
     <div class="row" th:if="${param.error}">
-        <div class="sm-12">
+        <div class="col-sm-12 col-md-6 offset-md-3">
             <div class="alert alert-primary">
                 Invalid username and password.
             </div>
@@ -30,7 +30,7 @@
     </div>
 
     <div class="row" th:if="${param.logout}">
-        <div class="sm-12">
+        <div class="col-sm-12 col-md-6 offset-md-3">
             <div class="alert alert-primary">
                 You have been logged out.
             </div>
@@ -39,7 +39,7 @@
 
     <form th:action="@{/login}" method="post">
         <div class="row">
-            <div class="sm-12">
+            <div class="col-sm-12 col-md-6 offset-md-3">
                 <label for="email" class="form-label">email:</label>
                 <input type="email"
                        required
@@ -50,7 +50,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="sm-12">
+            <div class="col-sm-12 col-md-6 offset-md-3">
                 <label for="password" class="form-label">password:</label>
                 <input type="password"
                        required
@@ -61,25 +61,25 @@
             </div>
         </div>
         <div class="row">
-            <div class="sm-12">
+            <div class="col-sm-12 col-md-6 offset-md-3">
                 &nbsp;
             </div>
         </div>
         <div class="row">
-            <div class="sm-12 d-grid">
+            <div class="col-sm-12 col-md-6 offset-md-3 d-grid">
                 <button type="submit" class="btn btn-primary">Log in</button>
             </div>
         </div>
     </form>
 
     <div class="row">
-        <div class="sm-12">
+        <div class="col-sm-12 col-md-6 offset-md-3">
             <hr />
         </div>
     </div>
 
     <div class="row">
-        <div class="sm-12 d-grid">
+        <div class="col-sm-12 col-md-6 offset-md-3 d-grid">
             <a class="btn btn-outline-primary"
                th:href="@{/oauth2/authorization/google}">
                 Login with Google
@@ -88,13 +88,13 @@
     </div>
 
     <div class="row">
-        <div class="sm-12">
+        <div class="col-sm-12 col-md-6 offset-md-3">
             &nbsp;
         </div>
     </div>
 
     <div class="row">
-        <div class="sm-12 d-grid">
+        <div class="col-sm-12 col-md-6 offset-md-3">
             <p>
                 Don't have account? Then <a th:href="@{/register}">register</a>
             </p>
