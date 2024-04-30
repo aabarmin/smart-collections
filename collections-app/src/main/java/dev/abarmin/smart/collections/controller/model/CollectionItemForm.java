@@ -21,5 +21,5 @@ public class CollectionItemForm {
     @NotEmpty
     private String artist;
     @Nullable
-    private Integer coverId;
+    private int coverId;
 }

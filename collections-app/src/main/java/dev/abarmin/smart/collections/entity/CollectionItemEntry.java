@@ -16,10 +16,10 @@ import org.springframework.data.relational.core.mapping.Table;
 import java.time.LocalDateTime;
 
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table("COLLECTION_ITEMS")
+@Builder(toBuilder = true)
 public class CollectionItemEntry {
     @Id
     @Column("ID")

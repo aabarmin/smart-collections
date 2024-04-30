@@ -17,6 +17,7 @@ public class CollectionModelConverter {
                 .id(collection.getId())
                 .name(collection.getName())
                 .albums(collection.getCollectionItems().stream()
+                        .filter(album -> !album.isDeleted())
                         .map(this::convert)
                         .toList())
                 .build();
@@ -27,7 +28,17 @@ public class CollectionModelConverter {
                 .id(item.getId())
                 .artist(item.getArtist())
                 .album(item.getAlbum())
-                .cover(NO_COVER)
+                .cover(getCover(item))
                 .build();
+    }
+
+    private String getCover(CollectionItemEntry itemEntry) {
+        if (itemEntry.getCoverFileId() == null) {
+            return NO_COVER;
+        }
+        return String.format(
+                "/images/%s/thumbnail",
+                itemEntry.getCoverFileId().getId()
+        );
     }
 }
