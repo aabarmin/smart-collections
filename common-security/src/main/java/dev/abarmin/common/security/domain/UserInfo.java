@@ -15,6 +15,7 @@ import java.util.Collection;
 public class UserInfo implements UserDetails {
     private int id;
     private String username;
+    private String fullName;
 
     private String password;
     private boolean activated;
