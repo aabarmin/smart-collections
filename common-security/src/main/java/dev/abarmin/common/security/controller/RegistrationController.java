@@ -2,10 +2,14 @@ package dev.abarmin.common.security.controller;
 
 import dev.abarmin.common.security.controller.converter.UserRegistrationConverter;
 import dev.abarmin.common.security.controller.model.UserRegistration;
+import dev.abarmin.common.security.entity.UserEntity;
+import dev.abarmin.common.security.event.UserRegisteredEvent;
 import dev.abarmin.common.security.repository.UserEntityRepository;
+import dev.abarmin.common.security.service.UserEntityConverter;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -20,7 +24,9 @@ public class RegistrationController {
     public static final String REGISTRATION_ENDPOINT = "/register";
 
     private final UserEntityRepository userRepository;
-    private final UserRegistrationConverter converter;
+    private final UserRegistrationConverter formConverter;
+    private final UserEntityConverter entityConverter;
+    private final ApplicationEventPublisher eventPublisher;
 
     @ModelAttribute("form")
     public UserRegistration userRegistration() {
@@ -53,7 +59,11 @@ public class RegistrationController {
         }
 
         // create a new user
-        userRepository.save(converter.convert(form));
+        UserEntity saved = userRepository.save(formConverter.convert(form));
+        eventPublisher.publishEvent(UserRegisteredEvent.builder()
+                .userInfo(entityConverter.convert(saved))
+                .build());
+
         return "user/registration_success";
     }
 

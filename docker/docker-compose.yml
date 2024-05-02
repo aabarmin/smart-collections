@@ -1,0 +1,7 @@
+version: '3.7'
+services:
+  mail-server:
+    image: maildev/maildev
+    ports:
+      - "1080:1080"
+      - "1025:1025"
