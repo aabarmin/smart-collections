@@ -5,12 +5,14 @@ import dev.abarmin.common.security.controller.model.UserRegistration;
 import dev.abarmin.common.security.repository.UserEntityRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
@@ -26,7 +28,12 @@ public class RegistrationController {
     }
 
     @GetMapping(REGISTRATION_ENDPOINT)
-    public String registerForm() {
+    public String registerForm(@ModelAttribute("form") UserRegistration form,
+                               @RequestParam(value = "email", required = false) String email) {
+
+        if (StringUtils.isNoneEmpty(email)) {
+            form.setEmail(email);
+        }
         return "user/registration_form";
     }
 
