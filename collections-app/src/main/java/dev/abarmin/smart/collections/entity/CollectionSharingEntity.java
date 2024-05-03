@@ -42,7 +42,7 @@ public class CollectionSharingEntity {
     @Column("REQUEST_STATUS")
     private CollectionSharingStatus status;
 
-    @Column("REQUEST_EXPIRED_AT")
+    @Column("REQUEST_EXPIRES_AT")
     private LocalDateTime expiresAt;
 
     @Column("DELETED")

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="">
+<head>
+    <title>My collections</title>
+</head>
+<body>
+<th:block th:fragment="subform-collection-sharing">
+    <div class="row">
+        <div class="col">
+            &nbsp;
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div class="alert alert-primary"
+                 th:if="${not #strings.isEmpty(message)}"
+                 th:text="${message}"></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <h2>
+                Collection Sharing
+            </h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            &nbsp;
+        </div>
+    </div>
+
+    <form th:object="${sharingForm}"
+          th:method="POST"
+          hx-target="#subform-collection-sharing"
+          th:attr="hx-post='/collections/' + ${sharingForm.getCollectionId()} + '/share'"
+          th:action="@{/collections/{id}/sharing(id=${sharingForm.getCollectionId()})}">
+
+        <input type="hidden" th:field="*{collectionId}" />
+
+        <div class="row">
+            <div class="col-2">
+                Share with:
+            </div>
+            <div class="col-6">
+                <input type="email"
+                       required
+                       th:field="*{email}"
+                       th:class="'form-control ' + ${#fields.hasErrors('email') ? 'is-invalid' : ''}"
+                       placeholder="Email of person you want to share this collection with" />
+                <div class="invalid-feedback"
+                     th:if="${#fields.hasErrors('email')}"
+                     th:errors="*{email}" />
+            </div>
+            <div class="col-2">
+                <select class="form-select" th:field="*{role}">
+                    <option value="CHANGE" selected>Contributor</option>
+                    <option value="READ">Reader</option>
+                </select>
+            </div>
+            <div class="col-2 d-grid">
+                <button class="btn btn-primary" type="submit">Send invitation</button>
+            </div>
+        </div>
+    </form>
+
+    <div class="row">
+        <div class="col">
+            &nbsp;
+        </div>
+    </div>
+
+    <div class="row" th:if="${not #lists.isEmpty(records)}">
+        <div class="col">
+            <table class="table">
+                <tr>
+                    <th>Person</th>
+                    <th>Status</th>
+                    <th>Role</th>
+                    <th>Actions</th>
+                </tr>
+                <tr th:each="record : ${records}">
+                    <td th:text="${record.recipientEmail}" />
+                    <td th:text="${record.status}" />
+                    <td th:text="${record.permissions}" />
+                    <td>
+                        <button class="btn btn-danger"
+                                hx-target="#subform-collection-sharing"
+                                th:attr="hx-get='/collections/' + ${sharingForm.getCollectionId()} + '/share/' + ${record.getId()} + '/revoke'">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</th:block>
+</body>
+</html>

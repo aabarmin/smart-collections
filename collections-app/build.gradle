@@ -16,6 +16,7 @@ dependencies {
     runtimeOnly("org.webjars.npm:jquery:3.7.1")
     runtimeOnly("org.webjars.npm:axios:1.6.8")
     runtimeOnly("org.webjars.npm:bootstrap-icons:1.11.3")
+    runtimeOnly("org.webjars.npm:htmx.org:1.9.12")
 
     // data access
     implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'

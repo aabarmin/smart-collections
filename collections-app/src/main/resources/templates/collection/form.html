@@ -59,6 +59,12 @@
             </div>
         </div>
     </form>
+
+    <th:block th:if="${form.getId() != 0}">
+        <div id="subform-collection-sharing"
+             hx-trigger="load"
+             th:attr="hx-get='/collections/' + ${form.getId()} + '/share'"></div>
+    </th:block>
 </th:block>
 </body>
 </html>

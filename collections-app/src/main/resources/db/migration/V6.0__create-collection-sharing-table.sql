@@ -11,6 +11,7 @@ create table COLLECTION_SHARING
     REQUEST_EXPIRES_AT     timestamp,
     DELETED                BOOLEAN default FALSE,
     CREATED_AT             TIMESTAMP,
+    UPDATED_AT             TIMESTAMP,
 
     constraint COLLECTION_SHARING_pk
         primary key (ID),
