@@ -3,10 +3,9 @@ package dev.abarmin.smart.collections;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
-public class HappyPathTest {
+class HappyPathTest {
     private String userEmail;
     private String userPassword;
     private String userFullName;
@@ -40,5 +39,14 @@ public class HappyPathTest {
                 .emailField(el -> el.val(userEmail))
                 .passwordField(el -> el.val(userPassword))
                 .loginButton(el -> el.click());
+
+        CollectionsPage.current()
+                .createNewButton(el -> el.click());
+
+        CollectionAddPage.current()
+                .name(el -> el.val("Collection " + RandomStringUtils.randomAlphabetic(32)))
+                .saveButton(el -> el.click());
+
+
     }
 }
